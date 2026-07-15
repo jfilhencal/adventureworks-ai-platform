@@ -1,8 +1,12 @@
 import logging
 
+import truststore
+
+truststore.inject_into_ssl()
+
 from fastapi import FastAPI
 
-from app.api import ai, forecast, health, sales
+from app.api import HR, ai, forecast, health, sales
 from app.core.config import get_settings
 from app.core.database import verify_connection
 from app.core.logging_config import configure_logging
@@ -22,6 +26,7 @@ app = FastAPI(
 app.include_router(health.router)
 app.include_router(sales.router)
 app.include_router(forecast.router)
+app.include_router(HR.router)
 app.include_router(ai.router)
 
 

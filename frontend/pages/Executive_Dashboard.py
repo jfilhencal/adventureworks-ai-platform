@@ -13,7 +13,7 @@ except Exception as exc:
     st.stop()
 
 summary = summary or {}
-#st.write(summary)
+st.write(summary)
 
 revenue = summary.get("total_revenue", 0)
 orders = summary.get("total_orders", 0)
@@ -30,4 +30,4 @@ with col3:
 with col4:
     st.metric("Top Region", top_region)
 
-st.caption("TODO: Adicionar gráficos melhores.")
+st.caption("TODO: Arranjar melhores métricas e visualizações.")

@@ -37,6 +37,9 @@ class Settings(BaseSettings):
     azure_openai_api_version: str = "2024-10-21"
     # Managed identity client ID for token acquisition (leave blank for system-assigned/local dev credential chain)
     azure_openai_managed_identity_client_id: str = ""
+    # "default"     -> DefaultAzureCredential (Container Apps/App Service managed identity)
+    # "interactive" -> InteractiveBrowserCredential (local dev machines without az CLI/VS Code broker)
+    azure_openai_auth_mode: Literal["default", "interactive"] = "default"
 
     # Azure Storage (blob-based exports/artifacts)
     azure_storage_account_url: str = ""
