@@ -1,0 +1,832 @@
+synonyms:
+  # =====================================================
+  # General business terms
+  # =====================================================
+  business:
+    - company
+    - organization
+    - enterprise
+    - operation
+    - operations
+    - performance
+    - activity
+    - overview
+    - business overview
+    - company overview
+
+  performance:
+    - performance
+    - results
+    - outcome
+    - outcomes
+    - kpi
+    - kpis
+    - metric
+    - metrics
+    - measure
+    - measures
+    - indicator
+    - indicators
+
+  trend:
+    - trend
+    - trends
+    - over time
+    - time series
+    - monthly
+    - yearly
+    - quarterly
+    - by month
+    - by year
+    - by quarter
+    - historical
+    - history
+
+  comparison:
+    - compare
+    - comparison
+    - versus
+    - vs
+    - difference
+    - differences
+    - gap
+    - ranking
+    - rank
+    - top
+    - bottom
+    - best
+    - worst
+    - highest
+    - lowest
+
+  # =====================================================
+  # Sales and revenue
+  # =====================================================
+  revenue:
+    - revenue
+    - sales
+    - turnover
+    - income
+    - sales amount
+    - total sales
+    - total revenue
+    - money made
+    - generated revenue
+
+  internet_sales:
+    - internet sales
+    - online sales
+    - ecommerce sales
+    - e-commerce sales
+    - web sales
+    - online revenue
+    - internet revenue
+    - ecommerce revenue
+
+  reseller_sales:
+    - reseller sales
+    - channel sales
+    - partner sales
+    - indirect sales
+    - reseller revenue
+    - channel revenue
+    - partner revenue
+
+  orders:
+    - orders
+    - order count
+    - number of orders
+    - transactions
+    - sales orders
+    - order volume
+    - purchases
+
+  average_order_value:
+    - average order value
+    - aov
+    - average sale
+    - average sales amount
+    - average transaction value
+    - average order
+
+  quantity:
+    - quantity
+    - quantities
+    - units
+    - units sold
+    - volume
+    - sales volume
+    - order quantity
+
+  margin:
+    - margin
+    - gross margin
+    - profit
+    - profitability
+    - gross profit
+    - sales profit
+    - margin percentage
+    - margin percent
+
+  cost:
+    - cost
+    - costs
+    - product cost
+    - total cost
+    - standard cost
+    - unit cost
+    - expense
+    - expenses
+
+  discount:
+    - discount
+    - discounts
+    - discount amount
+    - discount percent
+    - promotion discount
+
+  tax:
+    - tax
+    - taxes
+    - tax amount
+    - sales tax
+
+  freight:
+    - freight
+    - shipping
+    - shipping cost
+    - delivery cost
+    - transport cost
+
+  quota:
+    - quota
+    - quotas
+    - sales quota
+    - target
+    - sales target
+    - goal
+    - sales goal
+
+  # =====================================================
+  # Products
+  # =====================================================
+  product:
+    - product
+    - products
+    - item
+    - items
+    - product name
+    - SKU
+    - sku
+    - product code
+    - catalog
+    - product catalog
+
+  product_category:
+    - category
+    - product category
+    - categories
+    - product categories
+
+  product_subcategory:
+    - subcategory
+    - product subcategory
+    - subcategories
+    - product subcategories
+
+  product_color:
+    - color
+    - colour
+    - product color
+    - product colour
+
+  product_size:
+    - size
+    - product size
+    - size range
+
+  product_weight:
+    - weight
+    - product weight
+
+  product_price:
+    - price
+    - list price
+    - dealer price
+    - reseller price
+    - product price
+
+  product_model:
+    - model
+    - model name
+    - product model
+
+  product_status:
+    - status
+    - product status
+    - active product
+    - inactive product
+
+  # =====================================================
+  # Customers and client segmentation
+  # =====================================================
+  customer:
+    - customer
+    - customers
+    - client
+    - clients
+    - buyer
+    - buyers
+    - consumer
+    - consumers
+    - purchaser
+    - purchasers
+
+  customer_segment:
+    - segment
+    - segments
+    - customer segment
+    - customer segments
+    - client segment
+    - customer profile
+    - customer demographics
+    - demographic
+    - demographics
+
+  customer_income:
+    - income
+    - yearly income
+    - customer income
+    - client income
+    - household income
+
+  customer_education:
+    - education
+    - customer education
+    - education level
+    - schooling
+
+  customer_occupation:
+    - occupation
+    - customer occupation
+    - job
+    - profession
+    - employment type
+
+  customer_homeowner:
+    - homeowner
+    - home owner
+    - house owner
+    - owns house
+    - house owner flag
+
+  commute:
+    - commute
+    - commute distance
+    - commuting distance
+
+  first_purchase:
+    - first purchase
+    - first purchase date
+    - date first purchase
+    - first bought
+    - first order
+
+  # =====================================================
+  # Geography and territory
+  # =====================================================
+  geography:
+    - geography
+    - location
+    - locations
+    - country
+    - countries
+    - region
+    - regions
+    - market
+    - markets
+    - territory
+    - territories
+    - city
+    - cities
+    - state
+    - province
+    - state province
+
+  country:
+    - country
+    - countries
+    - nation
+    - market
+    - country region
+    - sales country
+
+  region:
+    - region
+    - regions
+    - sales region
+    - territory
+    - sales territory
+    - market
+    - area
+
+  city:
+    - city
+    - cities
+    - town
+    - location
+
+  sales_territory:
+    - sales territory
+    - territory
+    - sales region
+    - territory group
+    - sales area
+    - market
+
+  # =====================================================
+  # Time and calendar
+  # =====================================================
+  date:
+    - date
+    - dates
+    - calendar
+    - day
+    - time
+    - period
+
+  month:
+    - month
+    - months
+    - monthly
+    - by month
+    - month name
+
+  quarter:
+    - quarter
+    - quarters
+    - quarterly
+    - by quarter
+    - calendar quarter
+    - fiscal quarter
+
+  year:
+    - year
+    - years
+    - yearly
+    - annual
+    - annually
+    - calendar year
+    - fiscal year
+
+  fiscal:
+    - fiscal
+    - fiscal year
+    - fiscal quarter
+    - fiscal semester
+
+  order_date:
+    - order date
+    - sales date
+    - purchase date
+    - transaction date
+
+  ship_date:
+    - ship date
+    - shipping date
+    - shipped date
+    - delivery date
+
+  due_date:
+    - due date
+    - expected date
+    - promised date
+
+  # =====================================================
+  # Workforce and employees
+  # =====================================================
+  employee:
+    - employee
+    - employees
+    - worker
+    - workers
+    - staff
+    - workforce
+    - personnel
+    - team member
+    - team members
+
+  headcount:
+    - headcount
+    - employee count
+    - staff count
+    - workforce size
+    - number of employees
+    - current employees
+
+  department:
+    - department
+    - departments
+    - team
+    - teams
+    - business unit
+    - org unit
+    - department group
+    - organization unit
+
+  job_title:
+    - title
+    - job title
+    - role
+    - position
+    - employee role
+
+  tenure:
+    - tenure
+    - average tenure
+    - years at company
+    - length of service
+    - employee tenure
+    - time employed
+
+  hiring:
+    - hire
+    - hired
+    - hires
+    - hiring
+    - new hires
+    - recruitment
+    - joined
+    - join date
+    - hire date
+
+  termination:
+    - termination
+    - terminations
+    - terminated
+    - leavers
+    - attrition
+    - turnover
+    - employee turnover
+    - departures
+
+  vacation:
+    - vacation
+    - vacation hours
+    - holiday hours
+    - time off
+
+  sick_leave:
+    - sick leave
+    - sick hours
+    - sick leave hours
+    - illness absence
+
+  manager:
+    - manager
+    - supervisor
+    - parent employee
+    - reporting manager
+    - boss
+
+  # =====================================================
+  # Resellers and channel partners
+  # =====================================================
+  reseller:
+    - reseller
+    - resellers
+    - partner
+    - partners
+    - channel partner
+    - channel
+    - indirect channel
+    - dealer
+    - dealers
+
+  reseller_profile:
+    - reseller profile
+    - partner profile
+    - reseller details
+    - partner details
+
+  reseller_business_type:
+    - business type
+    - reseller business type
+    - partner type
+    - dealer type
+
+  reseller_annual_sales:
+    - annual sales
+    - reseller annual sales
+    - partner annual sales
+
+  reseller_annual_revenue:
+    - annual revenue
+    - reseller annual revenue
+    - partner annual revenue
+
+  # =====================================================
+  # Promotions and marketing
+  # =====================================================
+  promotion:
+    - promotion
+    - promotions
+    - campaign
+    - campaigns
+    - offer
+    - offers
+    - deal
+    - deals
+    - discount campaign
+
+  promotion_type:
+    - promotion type
+    - campaign type
+    - offer type
+
+  promotion_category:
+    - promotion category
+    - campaign category
+    - offer category
+
+  marketing:
+    - marketing
+    - campaign
+    - campaigns
+    - promotions
+    - promotional activity
+
+  # =====================================================
+  # Sales reasons
+  # =====================================================
+  sales_reason:
+    - sales reason
+    - reason
+    - reasons
+    - buying reason
+    - purchase reason
+    - reason for sale
+
+  reason_type:
+    - reason type
+    - sales reason type
+    - reason category
+
+  # =====================================================
+  # Inventory and stock
+  # =====================================================
+  inventory:
+    - inventory
+    - stock
+    - stock level
+    - stock levels
+    - inventory level
+    - inventory levels
+    - warehouse stock
+    - stock on hand
+
+  inventory_units_in:
+    - units in
+    - inbound inventory
+    - stock added
+    - inventory received
+    - incoming stock
+
+  inventory_units_out:
+    - units out
+    - outbound inventory
+    - stock removed
+    - inventory shipped
+    - outgoing stock
+
+  inventory_balance:
+    - inventory balance
+    - stock balance
+    - units balance
+    - stock on hand
+    - remaining stock
+
+  inventory_value:
+    - inventory value
+    - stock value
+    - inventory valuation
+    - stock valuation
+
+  reorder:
+    - reorder
+    - reorder point
+    - safety stock
+    - stock threshold
+    - restock
+
+  # =====================================================
+  # Call center operations
+  # =====================================================
+  call_center:
+    - call center
+    - call centre
+    - contact center
+    - contact centre
+    - customer support
+    - support operations
+    - service desk
+    - phone support
+    - support center
+    - support centre
+
+  calls:
+    - calls
+    - call volume
+    - total calls
+    - inbound calls
+    - phone calls
+    - handled calls
+
+  call_center_orders:
+    - call center orders
+    - phone orders
+    - orders from calls
+    - orders through calls
+
+  issues:
+    - issues
+    - issue
+    - tickets
+    - ticket
+    - cases
+    - case
+    - problems
+    - complaints
+    - issues raised
+
+  average_handle_time:
+    - average handle time
+    - handle time
+    - time per issue
+    - average time per issue
+    - call duration
+    - issue duration
+
+  service_grade:
+    - service grade
+    - service level
+    - call center service level
+    - support service level
+
+  operators:
+    - operators
+    - agents
+    - call center agents
+    - support agents
+    - call center staff
+    - support staff
+
+  level_one_operators:
+    - level one operators
+    - level 1 operators
+    - tier one agents
+    - tier 1 agents
+    - first line support
+    - first-level support
+
+  level_two_operators:
+    - level two operators
+    - level 2 operators
+    - tier two agents
+    - tier 2 agents
+    - second line support
+    - second-level support
+
+  automatic_responses:
+    - automatic responses
+    - automated responses
+    - automation responses
+    - auto responses
+    - automated replies
+
+  shift:
+    - shift
+    - shifts
+    - work shift
+    - call center shift
+    - support shift
+
+  wage_type:
+    - wage type
+    - pay type
+    - compensation type
+
+  # =====================================================
+  # Finance and accounting
+  # =====================================================
+  finance:
+    - finance
+    - financial
+    - accounting
+    - accounts
+    - ledger
+    - financials
+
+  financial_amount:
+    - amount
+    - finance amount
+    - financial amount
+    - accounting amount
+    - money amount
+
+  account:
+    - account
+    - accounts
+    - financial account
+    - ledger account
+    - account code
+
+  account_type:
+    - account type
+    - financial account type
+    - ledger type
+
+  scenario:
+    - scenario
+    - scenarios
+    - actual
+    - budget
+    - forecast
+    - plan
+    - planning scenario
+
+  organization:
+    - organization
+    - organisation
+    - org
+    - business entity
+    - company unit
+    - enterprise unit
+
+  ownership:
+    - ownership
+    - percentage of ownership
+    - ownership percentage
+
+  # =====================================================
+  # Currency and exchange rates
+  # =====================================================
+  currency:
+    - currency
+    - currencies
+    - currency code
+    - currency name
+    - money currency
+
+  exchange_rate:
+    - exchange rate
+    - currency rate
+    - average rate
+    - end of day rate
+    - closing rate
+    - conversion rate
+
+  # =====================================================
+  # Survey and feedback
+  # =====================================================
+  survey:
+    - survey
+    - surveys
+    - survey response
+    - survey responses
+    - questionnaire
+    - feedback
+    - customer feedback
+
+  response:
+    - response
+    - responses
+    - answer
+    - answers
+    - survey answer
+
+  satisfaction:
+    - satisfaction
+    - customer satisfaction
+    - csat
+    - satisfaction score
+    - feedback score
+
+  # =====================================================
+  # Internationalization and descriptions
+  # =====================================================
+  localization:
+    - localization
+    - localisation
+    - international
+    - translated
+    - translation
+    - language
+    - culture
+
+  description:
+    - description
+    - descriptions
+    - product description
+    - details
+    - text description

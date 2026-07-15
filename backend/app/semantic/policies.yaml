@@ -1,0 +1,219 @@
+policies:
+  max_rows: 500
+  require_select_only: true
+  allow_comments: false
+  allow_semicolons: false
+  allow_stored_procedures: false
+  allow_employee_level_data: false
+  allow_customer_level_pii: false
+  allow_employee_level_pii: false
+  allow_pii: false
+  allow_cross_domain_queries: true
+  require_aggregation_for_restricted_tables: true
+
+restricted_tables:
+  # Employee data should only be used in aggregate unless explicitly allowed.
+  - dbo.DimEmployee
+
+sensitive_tables:
+  - dbo.DimCustomer
+  - dbo.DimEmployee
+  - dbo.DimReseller
+  - dbo.FactSurveyResponse
+
+restricted_columns:
+  # =====================================================
+  # Employee PII and sensitive HR fields
+  # =====================================================
+  - table: dbo.DimEmployee
+    columns:
+      - EmployeeNationalIDAlternateKey
+      - ParentEmployeeNationalIDAlternateKey
+      - FirstName
+      - LastName
+      - MiddleName
+      - NameStyle
+      - BirthDate
+      - LoginID
+      - EmailAddress
+      - Phone
+      - MaritalStatus
+      - EmergencyContactName
+      - EmergencyContactPhone
+      - Gender
+      - PayFrequency
+      - BaseRate
+
+  # =====================================================
+  # Customer PII and sensitive demographic fields
+  # =====================================================
+  - table: dbo.DimCustomer
+    columns:
+      - Title
+      - FirstName
+      - MiddleName
+      - LastName
+      - BirthDate
+      - MaritalStatus
+      - Suffix
+      - Gender
+      - EmailAddress
+      - TotalChildren
+      - NumberChildrenAtHome
+      - AddressLine1
+      - AddressLine2
+      - Phone
+
+  # =====================================================
+  # Geography PII-like location detail
+  # =====================================================
+  - table: dbo.DimGeography
+    columns:
+      - PostalCode
+      - IpAddressLocator
+
+  # =====================================================
+  # Reseller sensitive contact / financial details
+  # =====================================================
+  - table: dbo.DimReseller
+    columns:
+      - Phone
+      - AddressLine1
+      - AddressLine2
+      - BankName
+      - MinPaymentAmount
+      - MinPaymentType
+
+  # =====================================================
+  # Internet sales operational identifiers
+  # =====================================================
+  - table: dbo.FactInternetSales
+    columns:
+      - CarrierTrackingNumber
+      - CustomerPONumber
+
+  # =====================================================
+  # Reseller sales operational identifiers
+  # =====================================================
+  - table: dbo.FactResellerSales
+    columns:
+      - CarrierTrackingNumber
+      - CustomerPONumber
+
+allowed_tables:
+  # =====================================================
+  # Fact tables
+  # =====================================================
+  - dbo.FactInternetSales
+  - dbo.FactInternetSalesReason
+  - dbo.FactResellerSales
+  - dbo.FactProductInventory
+  - dbo.FactCallCenter
+  - dbo.FactCurrencyRate
+  - dbo.FactFinance
+  - dbo.FactSalesQuota
+  - dbo.FactSurveyResponse
+  - dbo.FactAdditionalInternationalProductDescription
+
+  # =====================================================
+  # Dimension tables
+  # =====================================================
+  - dbo.DimProduct
+  - dbo.DimProductSubcategory
+  - dbo.DimProductCategory
+  - dbo.DimCustomer
+  - dbo.DimGeography
+  - dbo.DimSalesTerritory
+  - dbo.DimDate
+  - dbo.DimEmployee
+  - dbo.DimReseller
+  - dbo.DimPromotion
+  - dbo.DimSalesReason
+  - dbo.DimCurrency
+  - dbo.DimAccount
+  - dbo.DimDepartmentGroup
+  - dbo.DimOrganization
+  - dbo.DimScenario
+
+allowed_query_patterns:
+  - name: aggregate_analysis
+    description: Aggregated analytical queries using COUNT, COUNT_BIG, SUM, AVG, MIN, MAX, GROUP BY.
+    allowed: true
+
+  - name: detail_rows_non_sensitive
+    description: Detail row queries are allowed only for non-sensitive tables and non-PII columns.
+    allowed: true
+
+  - name: employee_detail_rows
+    description: Direct employee-level rows are blocked unless allow_employee_level_data is true.
+    allowed: false
+
+  - name: customer_pii_detail_rows
+    description: Direct customer PII fields are blocked.
+    allowed: false
+
+  - name: financial_aggregate_analysis
+    description: Financial data can be queried in aggregate by account, organization, scenario, department group, and date.
+    allowed: true
+
+  - name: call_center_operational_analysis
+    description: Call center operational metrics can be queried by shift, wage type, and date.
+    allowed: true
+
+  - name: inventory_analysis
+    description: Inventory balances and movement can be queried by product and date.
+    allowed: true
+
+  - name: survey_analysis
+    description: Survey responses should be queried in aggregate and should avoid customer-identifying fields.
+    allowed: true
+
+blocked_sql_keywords:
+  - INSERT
+  - UPDATE
+  - DELETE
+  - DROP
+  - ALTER
+  - CREATE
+  - EXEC
+  - EXECUTE
+  - MERGE
+  - TRUNCATE
+  - GRANT
+  - REVOKE
+  - BACKUP
+  - RESTORE
+  - SHUTDOWN
+  - WAITFOR
+  - OPENROWSET
+  - OPENQUERY
+  - OPENDATASOURCE
+  - BULK
+  - INTO
+
+blocked_sql_patterns:
+  - "--"
+  - "/*"
+  - "*/"
+  - ";"
+  - "sp_"
+  - "xp_"
+
+default_behavior:
+  unknown_topic: reject_without_sql
+  unknown_table: reject_without_sql
+  unknown_column: reject_without_sql
+  restricted_column: reject_without_sql
+  restricted_table_without_aggregation: reject_without_sql
+
+safe_response_guidance:
+  unknown_topic: >
+    I do not currently have enough semantic catalog information to answer that question.
+    The available catalog does not include approved tables, metrics, or business terms for this topic.
+
+  restricted_pii: >
+    I cannot answer that question because it would require restricted personal or sensitive data.
+    Try asking for aggregated results instead.
+
+  unsafe_sql: >
+    I could not safely execute the generated query because it violated the current data access policy.

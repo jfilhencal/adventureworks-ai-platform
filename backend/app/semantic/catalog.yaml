@@ -1,0 +1,2385 @@
+tables:
+  - name: dbo.FactInternetSales
+    business_name: Internet Sales
+    domain: sales
+    subject_area: transactions
+    description: Internet sales fact table. One row per internet sales order line.
+    grain: sales order line
+    allowed_for_ai: true
+    default_date_column: OrderDate
+
+  - name: dbo.FactResellerSales
+    business_name: Reseller Sales
+    domain: sales
+    subject_area: transactions
+    description: Reseller sales fact table. One row per reseller sales order line.
+    grain: reseller sales order line
+    allowed_for_ai: true
+    default_date_column: OrderDate
+
+  - name: dbo.FactSalesQuota
+    business_name: Sales Quotas
+    domain: sales
+    subject_area: quotas
+    description: Sales quota facts by employee and date.
+    grain: sales quota period by employee
+    allowed_for_ai: true
+    default_date_column: Date
+
+  - name: dbo.FactCurrencyRate
+    business_name: Currency Rates
+    domain: finance
+    subject_area: currency
+    description: Currency exchange rates by date and currency.
+    grain: currency rate by day
+    allowed_for_ai: true
+    default_date_column: Date
+
+  - name: dbo.FactFinance
+    business_name: Finance
+    domain: finance
+    subject_area: accounting
+    description: Financial fact table for accounts, organizations, departments, scenarios, and amounts.
+    grain: financial amount by account, organization, department, scenario, and date
+    allowed_for_ai: true
+    default_date_column: Date
+
+  - name: dbo.FactProductInventory
+    business_name: Product Inventory
+    domain: inventory
+    subject_area: stock
+    description: Product inventory balances by product and date.
+    grain: inventory snapshot by product and date
+    allowed_for_ai: true
+    default_date_column: Date
+
+  - name: dbo.FactCallCenter
+    business_name: Call Center Operations
+    domain: operations
+    subject_area: call_center
+    description: Call center operational facts including calls, service grade, wait time, and issue handling.
+    grain: call center shift or day
+    allowed_for_ai: true
+    default_date_column: Date
+
+  - name: dbo.FactSurveyResponse
+    business_name: Survey Responses
+    domain: customer
+    subject_area: survey
+    description: Customer survey response facts.
+    grain: survey response
+    allowed_for_ai: true
+    pii_level: moderate
+
+  - name: dbo.FactAdditionalInternationalProductDescription
+    business_name: International Product Descriptions
+    domain: product
+    subject_area: localization
+    description: Additional translated product descriptions.
+    grain: product description by culture
+    allowed_for_ai: true
+
+  - name: dbo.DimProduct
+    business_name: Products
+    domain: product
+    subject_area: product_catalog
+    description: Product dimension with product names, pricing, style, color, size, status, and subcategory.
+    grain: one row per product
+    allowed_for_ai: true
+
+  - name: dbo.DimProductSubcategory
+    business_name: Product Subcategories
+    domain: product
+    subject_area: product_catalog
+    description: Product subcategory dimension.
+    grain: one row per product subcategory
+    allowed_for_ai: true
+
+  - name: dbo.DimProductCategory
+    business_name: Product Categories
+    domain: product
+    subject_area: product_catalog
+    description: Product category dimension.
+    grain: one row per product category
+    allowed_for_ai: true
+
+  - name: dbo.DimCustomer
+    business_name: Customers
+    domain: customer
+    subject_area: customer_profile
+    description: Customer dimension containing demographics, name fields, income, education, marital status, and geography.
+    grain: one row per customer
+    allowed_for_ai: true
+    pii_level: moderate
+
+  - name: dbo.DimGeography
+    business_name: Geography
+    domain: geography
+    subject_area: location
+    description: Geographic dimension with city, state/province, country/region, postal code, and sales territory.
+    grain: one row per geography location
+    allowed_for_ai: true
+
+  - name: dbo.DimSalesTerritory
+    business_name: Sales Territories
+    domain: geography
+    subject_area: sales_territory
+    description: Sales territory dimension with region, country, and group.
+    grain: one row per sales territory
+    allowed_for_ai: true
+
+  - name: dbo.DimDate
+    business_name: Dates
+    domain: time
+    subject_area: calendar
+    description: Date dimension with day, week, month, quarter, semester, fiscal, and calendar attributes.
+    grain: one row per date
+    allowed_for_ai: true
+
+  - name: dbo.DimEmployee
+    business_name: Employees
+    domain: workforce
+    subject_area: employee_profile
+    description: Employee dimension with job, department, manager, hire date, status, and workforce attributes.
+    grain: one row per employee
+    allowed_for_ai: true
+    pii_level: restricted
+    default_date_column: HireDate
+
+  - name: dbo.DimReseller
+    business_name: Resellers
+    domain: reseller
+    subject_area: reseller_profile
+    description: Reseller dimension with business type, reseller name, geography, sales data, and order frequency.
+    grain: one row per reseller
+    allowed_for_ai: true
+
+  - name: dbo.DimPromotion
+    business_name: Promotions
+    domain: marketing
+    subject_area: promotion
+    description: Promotion dimension with discount, promotion type, category, and campaign timing.
+    grain: one row per promotion
+    allowed_for_ai: true
+
+  - name: dbo.DimSalesReason
+    business_name: Sales Reasons
+    domain: sales
+    subject_area: sales_reason
+    description: Sales reason dimension explaining why a sale occurred.
+    grain: one row per sales reason
+    allowed_for_ai: true
+
+  - name: dbo.DimCurrency
+    business_name: Currencies
+    domain: finance
+    subject_area: currency
+    description: Currency dimension with currency alternate key and name.
+    grain: one row per currency
+    allowed_for_ai: true
+
+  - name: dbo.DimAccount
+    business_name: Accounts
+    domain: finance
+    subject_area: accounting
+    description: Financial account dimension.
+    grain: one row per financial account
+    allowed_for_ai: true
+
+  - name: dbo.DimDepartmentGroup
+    business_name: Department Groups
+    domain: organization
+    subject_area: department
+    description: Department hierarchy dimension used by finance and organization reporting.
+    grain: one row per department group
+    allowed_for_ai: true
+
+  - name: dbo.DimOrganization
+    business_name: Organizations
+    domain: organization
+    subject_area: organization_structure
+    description: Organization dimension with organization hierarchy, currency, and parent organization.
+    grain: one row per organization
+    allowed_for_ai: true
+
+  - name: dbo.DimScenario
+    business_name: Scenarios
+    domain: finance
+    subject_area: planning
+    description: Scenario dimension used for actual, budget, and forecast style financial analysis.
+    grain: one row per scenario
+    allowed_for_ai: true
+
+columns:
+  # FactInternetSales
+  - table: dbo.FactInternetSales
+    name: ProductKey
+    business_name: Product key
+    description: Foreign key to DimProduct.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [product key]
+
+  - table: dbo.FactInternetSales
+    name: OrderDateKey
+    business_name: Order date key
+    description: Date key for the order date.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [order date key]
+
+  - table: dbo.FactInternetSales
+    name: DueDateKey
+    business_name: Due date key
+    description: Date key for the order due date.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [due date key]
+
+  - table: dbo.FactInternetSales
+    name: ShipDateKey
+    business_name: Ship date key
+    description: Date key for the ship date.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [ship date key]
+
+  - table: dbo.FactInternetSales
+    name: CustomerKey
+    business_name: Customer key
+    description: Foreign key to DimCustomer.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [customer key, client key]
+
+  - table: dbo.FactInternetSales
+    name: PromotionKey
+    business_name: Promotion key
+    description: Foreign key to DimPromotion.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [promotion key]
+
+  - table: dbo.FactInternetSales
+    name: CurrencyKey
+    business_name: Currency key
+    description: Foreign key to DimCurrency.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [currency key]
+
+  - table: dbo.FactInternetSales
+    name: SalesTerritoryKey
+    business_name: Sales territory key
+    description: Foreign key to DimSalesTerritory.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [territory key, region key]
+
+  - table: dbo.FactInternetSales
+    name: SalesOrderNumber
+    business_name: Sales order number
+    description: Sales order identifier.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [order number, sales order]
+
+  - table: dbo.FactInternetSales
+    name: SalesOrderLineNumber
+    business_name: Sales order line number
+    description: Sales order line identifier.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [order line, line number]
+
+  - table: dbo.FactInternetSales
+    name: RevisionNumber
+    business_name: Revision number
+    description: Order revision number.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [revision]
+
+  - table: dbo.FactInternetSales
+    name: OrderQuantity
+    business_name: Order quantity
+    description: Number of product units ordered.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [quantity, units, units sold, volume]
+
+  - table: dbo.FactInternetSales
+    name: UnitPrice
+    business_name: Unit price
+    description: Unit price for the order line.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [price, unit price]
+
+  - table: dbo.FactInternetSales
+    name: ExtendedAmount
+    business_name: Extended amount
+    description: Extended sales amount before discounts and adjustments.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [extended amount]
+
+  - table: dbo.FactInternetSales
+    name: UnitPriceDiscountPct
+    business_name: Unit price discount percent
+    description: Discount percentage applied to unit price.
+    semantic_type: percentage
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [discount, discount percent]
+
+  - table: dbo.FactInternetSales
+    name: DiscountAmount
+    business_name: Discount amount
+    description: Discount amount for the order line.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [discount amount]
+
+  - table: dbo.FactInternetSales
+    name: ProductStandardCost
+    business_name: Product standard cost
+    description: Standard product cost.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [cost, standard cost]
+
+  - table: dbo.FactInternetSales
+    name: TotalProductCost
+    business_name: Total product cost
+    description: Total product cost for the order line.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [total cost, product cost]
+
+  - table: dbo.FactInternetSales
+    name: SalesAmount
+    business_name: Sales revenue
+    description: Revenue amount for the order line.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [revenue, sales, turnover, income, sales amount]
+
+  - table: dbo.FactInternetSales
+    name: TaxAmt
+    business_name: Tax amount
+    description: Tax amount for the order line.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [tax, tax amount]
+
+  - table: dbo.FactInternetSales
+    name: Freight
+    business_name: Freight amount
+    description: Freight amount for the order line.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [freight, shipping cost]
+
+  - table: dbo.FactInternetSales
+    name: CarrierTrackingNumber
+    business_name: Carrier tracking number
+    description: Shipping carrier tracking number.
+    semantic_type: identifier
+    allowed_for_ai: false
+    is_pii: false
+    synonyms: [tracking number]
+
+  - table: dbo.FactInternetSales
+    name: CustomerPONumber
+    business_name: Customer purchase order number
+    description: Customer purchase order identifier.
+    semantic_type: identifier
+    allowed_for_ai: false
+    is_pii: false
+    synonyms: [purchase order, po number]
+
+  - table: dbo.FactInternetSales
+    name: OrderDate
+    business_name: Order date
+    description: Date when the order was placed.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [date, order date, sales date]
+
+  - table: dbo.FactInternetSales
+    name: DueDate
+    business_name: Due date
+    description: Date when the order was due.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [due date]
+
+  - table: dbo.FactInternetSales
+    name: ShipDate
+    business_name: Ship date
+    description: Date when the order was shipped.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [ship date, shipping date]
+
+  # FactResellerSales
+  - table: dbo.FactResellerSales
+    name: ProductKey
+    business_name: Product key
+    description: Foreign key to DimProduct.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [product key]
+
+  - table: dbo.FactResellerSales
+    name: OrderDateKey
+    business_name: Order date key
+    description: Date key for reseller order date.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [order date key]
+
+  - table: dbo.FactResellerSales
+    name: ResellerKey
+    business_name: Reseller key
+    description: Foreign key to DimReseller.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [reseller key, partner key]
+
+  - table: dbo.FactResellerSales
+    name: EmployeeKey
+    business_name: Employee key
+    description: Foreign key to DimEmployee.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [employee key, salesperson key]
+
+  - table: dbo.FactResellerSales
+    name: PromotionKey
+    business_name: Promotion key
+    description: Foreign key to DimPromotion.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [promotion key]
+
+  - table: dbo.FactResellerSales
+    name: CurrencyKey
+    business_name: Currency key
+    description: Foreign key to DimCurrency.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [currency key]
+
+  - table: dbo.FactResellerSales
+    name: SalesTerritoryKey
+    business_name: Sales territory key
+    description: Foreign key to DimSalesTerritory.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [territory key, region key]
+
+  - table: dbo.FactResellerSales
+    name: SalesOrderNumber
+    business_name: Sales order number
+    description: Reseller sales order identifier.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [order number, sales order]
+
+  - table: dbo.FactResellerSales
+    name: OrderQuantity
+    business_name: Order quantity
+    description: Number of units ordered.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [quantity, units, volume]
+
+  - table: dbo.FactResellerSales
+    name: UnitPrice
+    business_name: Unit price
+    description: Unit selling price.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [price, unit price]
+
+  - table: dbo.FactResellerSales
+    name: ExtendedAmount
+    business_name: Extended amount
+    description: Extended sales amount.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [extended amount]
+
+  - table: dbo.FactResellerSales
+    name: DiscountAmount
+    business_name: Discount amount
+    description: Discount amount.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [discount amount]
+
+  - table: dbo.FactResellerSales
+    name: ProductStandardCost
+    business_name: Product standard cost
+    description: Product standard cost.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [standard cost, cost]
+
+  - table: dbo.FactResellerSales
+    name: TotalProductCost
+    business_name: Total product cost
+    description: Total cost for reseller sales line.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [total cost, product cost]
+
+  - table: dbo.FactResellerSales
+    name: SalesAmount
+    business_name: Sales revenue
+    description: Revenue amount for reseller sales line.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [revenue, reseller sales, sales amount]
+
+  - table: dbo.FactResellerSales
+    name: TaxAmt
+    business_name: Tax amount
+    description: Tax amount.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [tax]
+
+  - table: dbo.FactResellerSales
+    name: Freight
+    business_name: Freight amount
+    description: Freight amount.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [freight, shipping cost]
+
+  - table: dbo.FactResellerSales
+    name: OrderDate
+    business_name: Order date
+    description: Date when reseller order was placed.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [order date, reseller order date]
+
+  - table: dbo.FactResellerSales
+    name: DueDate
+    business_name: Due date
+    description: Date when reseller order was due.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [due date]
+
+  - table: dbo.FactResellerSales
+    name: ShipDate
+    business_name: Ship date
+    description: Date when reseller order was shipped.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [ship date]
+
+  # FactCallCenter
+  - table: dbo.FactCallCenter
+    name: FactCallCenterID
+    business_name: Call center fact ID
+    description: Unique call center fact row identifier.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [call center fact id]
+
+  - table: dbo.FactCallCenter
+    name: DateKey
+    business_name: Date key
+    description: Date key for the call center record.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [date key]
+
+  - table: dbo.FactCallCenter
+    name: WageType
+    business_name: Wage type
+    description: Wage type for call center staffing.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [wage type]
+
+  - table: dbo.FactCallCenter
+    name: Shift
+    business_name: Shift
+    description: Call center shift.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [shift, work shift]
+
+  - table: dbo.FactCallCenter
+    name: LevelOneOperators
+    business_name: Level one operators
+    description: Number of level one call center operators.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [operators, level one staff]
+
+  - table: dbo.FactCallCenter
+    name: LevelTwoOperators
+    business_name: Level two operators
+    description: Number of level two call center operators.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [level two staff, operators]
+
+  - table: dbo.FactCallCenter
+    name: TotalOperators
+    business_name: Total operators
+    description: Total number of call center operators.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [total operators, staff, call center staff]
+
+  - table: dbo.FactCallCenter
+    name: Calls
+    business_name: Calls
+    description: Number of calls handled.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [calls, call volume, inbound calls]
+
+  - table: dbo.FactCallCenter
+    name: AutomaticResponses
+    business_name: Automatic responses
+    description: Number of automatic responses.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [automatic responses, automated responses]
+
+  - table: dbo.FactCallCenter
+    name: Orders
+    business_name: Orders
+    description: Number of orders from call center operations.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [orders, call center orders]
+
+  - table: dbo.FactCallCenter
+    name: IssuesRaised
+    business_name: Issues raised
+    description: Number of issues raised during call center operations.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [issues, tickets, problems, cases]
+
+  - table: dbo.FactCallCenter
+    name: AverageTimePerIssue
+    business_name: Average time per issue
+    description: Average time spent per issue.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [average handle time, time per issue, issue time]
+
+  - table: dbo.FactCallCenter
+    name: ServiceGrade
+    business_name: Service grade
+    description: Call center service grade metric.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [service grade, service level]
+
+  - table: dbo.FactCallCenter
+    name: Date
+    business_name: Date
+    description: Date of the call center record.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [date, call center date]
+
+  # FactFinance
+  - table: dbo.FactFinance
+    name: FinanceKey
+    business_name: Finance key
+    description: Unique finance fact identifier.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [finance key]
+
+  - table: dbo.FactFinance
+    name: DateKey
+    business_name: Date key
+    description: Date key for finance record.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [date key]
+
+  - table: dbo.FactFinance
+    name: OrganizationKey
+    business_name: Organization key
+    description: Foreign key to DimOrganization.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [organization key]
+
+  - table: dbo.FactFinance
+    name: DepartmentGroupKey
+    business_name: Department group key
+    description: Foreign key to DimDepartmentGroup.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [department group key]
+
+  - table: dbo.FactFinance
+    name: ScenarioKey
+    business_name: Scenario key
+    description: Foreign key to DimScenario.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [scenario key]
+
+  - table: dbo.FactFinance
+    name: AccountKey
+    business_name: Account key
+    description: Foreign key to DimAccount.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [account key]
+
+  - table: dbo.FactFinance
+    name: Amount
+    business_name: Finance amount
+    description: Financial amount.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [amount, finance amount, financial amount]
+
+  - table: dbo.FactFinance
+    name: Date
+    business_name: Finance date
+    description: Date of finance record.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [date, finance date]
+
+  # FactProductInventory
+  - table: dbo.FactProductInventory
+    name: ProductKey
+    business_name: Product key
+    description: Foreign key to DimProduct.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [product key]
+
+  - table: dbo.FactProductInventory
+    name: DateKey
+    business_name: Date key
+    description: Date key for inventory record.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [date key]
+
+  - table: dbo.FactProductInventory
+    name: MovementDate
+    business_name: Movement date
+    description: Date of inventory movement.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [movement date, inventory date]
+
+  - table: dbo.FactProductInventory
+    name: UnitCost
+    business_name: Unit cost
+    description: Unit cost of inventory item.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [unit cost, inventory cost]
+
+  - table: dbo.FactProductInventory
+    name: UnitsIn
+    business_name: Units in
+    description: Number of units added to inventory.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [units in, inbound inventory]
+
+  - table: dbo.FactProductInventory
+    name: UnitsOut
+    business_name: Units out
+    description: Number of units removed from inventory.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [units out, outbound inventory]
+
+  - table: dbo.FactProductInventory
+    name: UnitsBalance
+    business_name: Units balance
+    description: Inventory unit balance.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [inventory balance, stock balance, units balance]
+
+  # FactSalesQuota
+  - table: dbo.FactSalesQuota
+    name: SalesQuotaKey
+    business_name: Sales quota key
+    description: Unique sales quota fact identifier.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [quota key]
+
+  - table: dbo.FactSalesQuota
+    name: EmployeeKey
+    business_name: Employee key
+    description: Foreign key to DimEmployee.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [employee key, salesperson key]
+
+  - table: dbo.FactSalesQuota
+    name: DateKey
+    business_name: Date key
+    description: Date key for quota.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [date key]
+
+  - table: dbo.FactSalesQuota
+    name: CalendarYear
+    business_name: Calendar year
+    description: Calendar year of quota.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [year, calendar year]
+
+  - table: dbo.FactSalesQuota
+    name: CalendarQuarter
+    business_name: Calendar quarter
+    description: Calendar quarter of quota.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [quarter, calendar quarter]
+
+  - table: dbo.FactSalesQuota
+    name: SalesAmountQuota
+    business_name: Sales amount quota
+    description: Sales quota amount.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [quota, sales quota, target]
+
+  - table: dbo.FactSalesQuota
+    name: Date
+    business_name: Quota date
+    description: Date of sales quota.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [quota date, date]
+
+  # DimProduct
+  - table: dbo.DimProduct
+    name: ProductKey
+    business_name: Product key
+    description: Product surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [product key]
+
+  - table: dbo.DimProduct
+    name: ProductAlternateKey
+    business_name: Product alternate key
+    description: Product business key or SKU.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [sku, product code]
+
+  - table: dbo.DimProduct
+    name: ProductSubcategoryKey
+    business_name: Product subcategory key
+    description: Foreign key to DimProductSubcategory.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [subcategory key]
+
+  - table: dbo.DimProduct
+    name: WeightUnitMeasureCode
+    business_name: Weight unit measure code
+    description: Weight unit of measure.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [weight unit]
+
+  - table: dbo.DimProduct
+    name: SizeUnitMeasureCode
+    business_name: Size unit measure code
+    description: Size unit of measure.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [size unit]
+
+  - table: dbo.DimProduct
+    name: EnglishProductName
+    business_name: Product name
+    description: English product name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [product, product name, item, item name]
+
+  - table: dbo.DimProduct
+    name: StandardCost
+    business_name: Standard cost
+    description: Product standard cost.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [cost, standard cost]
+
+  - table: dbo.DimProduct
+    name: FinishedGoodsFlag
+    business_name: Finished goods flag
+    description: Indicates whether product is a finished good.
+    semantic_type: boolean
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [finished good]
+
+  - table: dbo.DimProduct
+    name: Color
+    business_name: Product color
+    description: Product color.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [color, colour]
+
+  - table: dbo.DimProduct
+    name: SafetyStockLevel
+    business_name: Safety stock level
+    description: Safety stock level for the product.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [safety stock]
+
+  - table: dbo.DimProduct
+    name: ReorderPoint
+    business_name: Reorder point
+    description: Product reorder point.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [reorder point]
+
+  - table: dbo.DimProduct
+    name: ListPrice
+    business_name: List price
+    description: Product list price.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [list price, price]
+
+  - table: dbo.DimProduct
+    name: Size
+    business_name: Product size
+    description: Product size.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [size]
+
+  - table: dbo.DimProduct
+    name: SizeRange
+    business_name: Size range
+    description: Product size range.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [size range]
+
+  - table: dbo.DimProduct
+    name: Weight
+    business_name: Product weight
+    description: Product weight.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [weight]
+
+  - table: dbo.DimProduct
+    name: DaysToManufacture
+    business_name: Days to manufacture
+    description: Number of days required to manufacture the product.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [manufacturing days, days to manufacture]
+
+  - table: dbo.DimProduct
+    name: ProductLine
+    business_name: Product line
+    description: Product line code.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [product line]
+
+  - table: dbo.DimProduct
+    name: DealerPrice
+    business_name: Dealer price
+    description: Dealer or reseller price.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [dealer price, reseller price]
+
+  - table: dbo.DimProduct
+    name: Class
+    business_name: Product class
+    description: Product class.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [class, product class]
+
+  - table: dbo.DimProduct
+    name: Style
+    business_name: Product style
+    description: Product style.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [style]
+
+  - table: dbo.DimProduct
+    name: ModelName
+    business_name: Model name
+    description: Product model name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [model, model name]
+
+  - table: dbo.DimProduct
+    name: EnglishDescription
+    business_name: Product description
+    description: English product description.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [description, product description]
+
+  - table: dbo.DimProduct
+    name: StartDate
+    business_name: Product start date
+    description: Product effective start date.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [start date]
+
+  - table: dbo.DimProduct
+    name: EndDate
+    business_name: Product end date
+    description: Product effective end date.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [end date]
+
+  - table: dbo.DimProduct
+    name: Status
+    business_name: Product status
+    description: Product status.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [status]
+
+  # DimProductSubcategory
+  - table: dbo.DimProductSubcategory
+    name: ProductSubcategoryKey
+    business_name: Product subcategory key
+    description: Product subcategory surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [subcategory key]
+
+  - table: dbo.DimProductSubcategory
+    name: ProductSubcategoryAlternateKey
+    business_name: Product subcategory alternate key
+    description: Product subcategory business key.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [subcategory code]
+
+  - table: dbo.DimProductSubcategory
+    name: EnglishProductSubcategoryName
+    business_name: Product subcategory
+    description: English product subcategory name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [subcategory, product subcategory]
+
+  - table: dbo.DimProductSubcategory
+    name: ProductCategoryKey
+    business_name: Product category key
+    description: Foreign key to DimProductCategory.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [category key]
+
+  # DimProductCategory
+  - table: dbo.DimProductCategory
+    name: ProductCategoryKey
+    business_name: Product category key
+    description: Product category surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [category key]
+
+  - table: dbo.DimProductCategory
+    name: ProductCategoryAlternateKey
+    business_name: Product category alternate key
+    description: Product category business key.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [category code]
+
+  - table: dbo.DimProductCategory
+    name: EnglishProductCategoryName
+    business_name: Product category
+    description: English product category name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [category, product category]
+
+  # DimCustomer
+  - table: dbo.DimCustomer
+    name: CustomerKey
+    business_name: Customer key
+    description: Customer surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [customer key, client key]
+
+  - table: dbo.DimCustomer
+    name: GeographyKey
+    business_name: Geography key
+    description: Foreign key to DimGeography.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [geography key, location key]
+
+  - table: dbo.DimCustomer
+    name: CustomerAlternateKey
+    business_name: Customer alternate key
+    description: Customer business key.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [customer id, client id]
+
+  - table: dbo.DimCustomer
+    name: Title
+    business_name: Customer title
+    description: Customer title.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [title]
+
+  - table: dbo.DimCustomer
+    name: FirstName
+    business_name: Customer first name
+    description: Customer first name.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [first name]
+
+  - table: dbo.DimCustomer
+    name: MiddleName
+    business_name: Customer middle name
+    description: Customer middle name.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [middle name]
+
+  - table: dbo.DimCustomer
+    name: LastName
+    business_name: Customer last name
+    description: Customer last name.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [last name, surname]
+
+  - table: dbo.DimCustomer
+    name: BirthDate
+    business_name: Customer birth date
+    description: Customer birth date.
+    semantic_type: date
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [birth date, date of birth, age]
+
+  - table: dbo.DimCustomer
+    name: MaritalStatus
+    business_name: Customer marital status
+    description: Customer marital status.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [marital status]
+
+  - table: dbo.DimCustomer
+    name: Suffix
+    business_name: Customer suffix
+    description: Customer name suffix.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [suffix]
+
+  - table: dbo.DimCustomer
+    name: Gender
+    business_name: Customer gender
+    description: Customer gender.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [gender]
+
+  - table: dbo.DimCustomer
+    name: EmailAddress
+    business_name: Customer email address
+    description: Customer email address.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [email, email address]
+
+  - table: dbo.DimCustomer
+    name: YearlyIncome
+    business_name: Customer yearly income
+    description: Customer yearly income.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [income, yearly income, customer income]
+
+  - table: dbo.DimCustomer
+    name: TotalChildren
+    business_name: Total children
+    description: Number of children for customer.
+    semantic_type: numeric
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [children, total children]
+
+  - table: dbo.DimCustomer
+    name: NumberChildrenAtHome
+    business_name: Children at home
+    description: Number of children at home.
+    semantic_type: numeric
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [children at home]
+
+  - table: dbo.DimCustomer
+    name: EnglishEducation
+    business_name: Customer education
+    description: Customer education level.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [education, customer education, education level]
+
+  - table: dbo.DimCustomer
+    name: EnglishOccupation
+    business_name: Customer occupation
+    description: Customer occupation.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [occupation, job, profession]
+
+  - table: dbo.DimCustomer
+    name: HouseOwnerFlag
+    business_name: House owner flag
+    description: Whether customer owns a house.
+    semantic_type: boolean
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [homeowner, house owner]
+
+  - table: dbo.DimCustomer
+    name: NumberCarsOwned
+    business_name: Number of cars owned
+    description: Number of cars owned by customer.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [cars owned, vehicles]
+
+  - table: dbo.DimCustomer
+    name: AddressLine1
+    business_name: Customer address line 1
+    description: Customer street address.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [address]
+
+  - table: dbo.DimCustomer
+    name: Phone
+    business_name: Customer phone
+    description: Customer phone number.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [phone, phone number]
+
+  - table: dbo.DimCustomer
+    name: DateFirstPurchase
+    business_name: Date first purchase
+    description: Date of customer first purchase.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [first purchase, first purchase date]
+
+  - table: dbo.DimCustomer
+    name: CommuteDistance
+    business_name: Commute distance
+    description: Customer commute distance band.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [commute, commute distance]
+
+  # DimGeography
+  - table: dbo.DimGeography
+    name: GeographyKey
+    business_name: Geography key
+    description: Geography surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [geography key]
+
+  - table: dbo.DimGeography
+    name: City
+    business_name: City
+    description: City name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [city, town]
+
+  - table: dbo.DimGeography
+    name: StateProvinceName
+    business_name: State or province
+    description: State or province name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [state, province, state province]
+
+  - table: dbo.DimGeography
+    name: EnglishCountryRegionName
+    business_name: Country or region
+    description: Country or region name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [country, region, market, geography]
+
+  - table: dbo.DimGeography
+    name: PostalCode
+    business_name: Postal code
+    description: Postal code.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [postal code, zip code]
+
+  - table: dbo.DimGeography
+    name: SalesTerritoryKey
+    business_name: Sales territory key
+    description: Foreign key to DimSalesTerritory.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [sales territory key]
+
+  # DimSalesTerritory
+  - table: dbo.DimSalesTerritory
+    name: SalesTerritoryKey
+    business_name: Sales territory key
+    description: Sales territory surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [territory key]
+
+  - table: dbo.DimSalesTerritory
+    name: SalesTerritoryAlternateKey
+    business_name: Sales territory alternate key
+    description: Sales territory business key.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [territory id]
+
+  - table: dbo.DimSalesTerritory
+    name: SalesTerritoryRegion
+    business_name: Sales region
+    description: Sales territory region.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [region, sales region, territory]
+
+  - table: dbo.DimSalesTerritory
+    name: SalesTerritoryCountry
+    business_name: Sales territory country
+    description: Sales territory country.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [country, territory country]
+
+  - table: dbo.DimSalesTerritory
+    name: SalesTerritoryGroup
+    business_name: Sales territory group
+    description: Sales territory group.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [territory group, sales group]
+
+  # DimDate
+  - table: dbo.DimDate
+    name: DateKey
+    business_name: Date key
+    description: Date surrogate key in YYYYMMDD format.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [date key]
+
+  - table: dbo.DimDate
+    name: FullDateAlternateKey
+    business_name: Full date
+    description: Full calendar date.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [date, full date]
+
+  - table: dbo.DimDate
+    name: DayNumberOfWeek
+    business_name: Day number of week
+    description: Numeric day of week.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [day of week number]
+
+  - table: dbo.DimDate
+    name: EnglishDayNameOfWeek
+    business_name: Day name
+    description: English day name of week.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [day, weekday]
+
+  - table: dbo.DimDate
+    name: DayNumberOfMonth
+    business_name: Day number of month
+    description: Day number within month.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [day of month]
+
+  - table: dbo.DimDate
+    name: DayNumberOfYear
+    business_name: Day number of year
+    description: Day number within year.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [day of year]
+
+  - table: dbo.DimDate
+    name: WeekNumberOfYear
+    business_name: Week number of year
+    description: Week number within year.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [week, week number]
+
+  - table: dbo.DimDate
+    name: EnglishMonthName
+    business_name: Month name
+    description: English month name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [month, month name]
+
+  - table: dbo.DimDate
+    name: MonthNumberOfYear
+    business_name: Month number
+    description: Month number within year.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [month number]
+
+  - table: dbo.DimDate
+    name: CalendarQuarter
+    business_name: Calendar quarter
+    description: Calendar quarter.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [quarter]
+
+  - table: dbo.DimDate
+    name: CalendarYear
+    business_name: Calendar year
+    description: Calendar year.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [year, calendar year]
+
+  - table: dbo.DimDate
+    name: CalendarSemester
+    business_name: Calendar semester
+    description: Calendar semester.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [semester]
+
+  - table: dbo.DimDate
+    name: FiscalQuarter
+    business_name: Fiscal quarter
+    description: Fiscal quarter.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [fiscal quarter]
+
+  - table: dbo.DimDate
+    name: FiscalYear
+    business_name: Fiscal year
+    description: Fiscal year.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [fiscal year]
+
+  - table: dbo.DimDate
+    name: FiscalSemester
+    business_name: Fiscal semester
+    description: Fiscal semester.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [fiscal semester]
+
+  # DimEmployee
+  - table: dbo.DimEmployee
+    name: EmployeeKey
+    business_name: Employee key
+    description: Employee surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [employee key]
+
+  - table: dbo.DimEmployee
+    name: ParentEmployeeKey
+    business_name: Manager employee key
+    description: Parent employee or manager key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [manager key, parent employee]
+
+  - table: dbo.DimEmployee
+    name: EmployeeNationalIDAlternateKey
+    business_name: Employee national ID
+    description: Employee national identification alternate key.
+    semantic_type: identifier
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [national id, employee national id]
+
+  - table: dbo.DimEmployee
+    name: ParentEmployeeNationalIDAlternateKey
+    business_name: Parent employee national ID
+    description: Parent employee national ID alternate key.
+    semantic_type: identifier
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [parent national id]
+
+  - table: dbo.DimEmployee
+    name: SalesTerritoryKey
+    business_name: Sales territory key
+    description: Sales territory assigned to employee.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [territory key]
+
+  - table: dbo.DimEmployee
+    name: FirstName
+    business_name: Employee first name
+    description: Employee first name.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [first name]
+
+  - table: dbo.DimEmployee
+    name: LastName
+    business_name: Employee last name
+    description: Employee last name.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [last name, surname]
+
+  - table: dbo.DimEmployee
+    name: MiddleName
+    business_name: Employee middle name
+    description: Employee middle name.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [middle name]
+
+  - table: dbo.DimEmployee
+    name: NameStyle
+    business_name: Name style
+    description: Employee name style flag.
+    semantic_type: boolean
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [name style]
+
+  - table: dbo.DimEmployee
+    name: Title
+    business_name: Job title
+    description: Employee job title.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [title, job title, role, position]
+
+  - table: dbo.DimEmployee
+    name: HireDate
+    business_name: Hire date
+    description: Date employee was hired.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [hire date, join date, hiring date]
+
+  - table: dbo.DimEmployee
+    name: BirthDate
+    business_name: Birth date
+    description: Employee birth date.
+    semantic_type: date
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [birth date, date of birth, age]
+
+  - table: dbo.DimEmployee
+    name: LoginID
+    business_name: Login ID
+    description: Employee login identifier.
+    semantic_type: identifier
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [login, login id]
+
+  - table: dbo.DimEmployee
+    name: EmailAddress
+    business_name: Employee email
+    description: Employee email address.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [email, email address]
+
+  - table: dbo.DimEmployee
+    name: Phone
+    business_name: Employee phone
+    description: Employee phone number.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [phone, phone number]
+
+  - table: dbo.DimEmployee
+    name: MaritalStatus
+    business_name: Marital status
+    description: Employee marital status.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [marital status]
+
+  - table: dbo.DimEmployee
+    name: EmergencyContactName
+    business_name: Emergency contact name
+    description: Employee emergency contact name.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [emergency contact]
+
+  - table: dbo.DimEmployee
+    name: EmergencyContactPhone
+    business_name: Emergency contact phone
+    description: Employee emergency contact phone.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [emergency phone]
+
+  - table: dbo.DimEmployee
+    name: SalariedFlag
+    business_name: Salaried flag
+    description: Indicates whether employee is salaried.
+    semantic_type: boolean
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [salaried]
+
+  - table: dbo.DimEmployee
+    name: Gender
+    business_name: Gender
+    description: Employee gender.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [gender]
+
+  - table: dbo.DimEmployee
+    name: PayFrequency
+    business_name: Pay frequency
+    description: Employee pay frequency.
+    semantic_type: numeric
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [pay frequency]
+
+  - table: dbo.DimEmployee
+    name: BaseRate
+    business_name: Base rate
+    description: Employee base pay rate. Restricted to aggregate analysis only.
+    semantic_type: money
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [salary, pay, compensation, base rate]
+
+  - table: dbo.DimEmployee
+    name: VacationHours
+    business_name: Vacation hours
+    description: Employee vacation hours.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [vacation, vacation hours]
+
+  - table: dbo.DimEmployee
+    name: SickLeaveHours
+    business_name: Sick leave hours
+    description: Employee sick leave hours.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [sick leave, sick hours]
+
+  - table: dbo.DimEmployee
+    name: DepartmentName
+    business_name: Department
+    description: Employee department name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [department, team, business unit]
+
+  - table: dbo.DimEmployee
+    name: StartDate
+    business_name: Employee record start date
+    description: Employee dimension row start date.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [start date]
+
+  - table: dbo.DimEmployee
+    name: EndDate
+    business_name: Employee record end date
+    description: Employee dimension row end date.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [end date]
+
+  - table: dbo.DimEmployee
+    name: Status
+    business_name: Employee status
+    description: Employee status.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [status, employee status]
+
+  - table: dbo.DimEmployee
+    name: CurrentFlag
+    business_name: Current employee flag
+    description: Indicates whether employee record is current.
+    semantic_type: boolean
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [current employee, active employee]
+
+  # DimReseller
+  - table: dbo.DimReseller
+    name: ResellerKey
+    business_name: Reseller key
+    description: Reseller surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [reseller key]
+
+  - table: dbo.DimReseller
+    name: GeographyKey
+    business_name: Geography key
+    description: Foreign key to DimGeography.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [geography key]
+
+  - table: dbo.DimReseller
+    name: ResellerAlternateKey
+    business_name: Reseller alternate key
+    description: Reseller business key.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [reseller id]
+
+  - table: dbo.DimReseller
+    name: Phone
+    business_name: Reseller phone
+    description: Reseller phone number.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [phone]
+
+  - table: dbo.DimReseller
+    name: BusinessType
+    business_name: Business type
+    description: Reseller business type.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [business type]
+
+  - table: dbo.DimReseller
+    name: ResellerName
+    business_name: Reseller name
+    description: Reseller organization name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [reseller, reseller name, partner]
+
+  - table: dbo.DimReseller
+    name: NumberEmployees
+    business_name: Number of employees
+    description: Number of employees at reseller.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [employees, reseller employees]
+
+  - table: dbo.DimReseller
+    name: AnnualSales
+    business_name: Annual sales
+    description: Reseller annual sales.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [annual sales]
+
+  - table: dbo.DimReseller
+    name: AnnualRevenue
+    business_name: Annual revenue
+    description: Reseller annual revenue.
+    semantic_type: money
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [annual revenue]
+
+  - table: dbo.DimReseller
+    name: BankName
+    business_name: Bank name
+    description: Reseller bank name.
+    semantic_type: text
+    allowed_for_ai: false
+    is_pii: true
+    synonyms: [bank]
+
+  - table: dbo.DimReseller
+    name: YearOpened
+    business_name: Year opened
+    description: Year reseller opened.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [year opened]
+
+  # DimPromotion
+  - table: dbo.DimPromotion
+    name: PromotionKey
+    business_name: Promotion key
+    description: Promotion surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [promotion key]
+
+  - table: dbo.DimPromotion
+    name: PromotionAlternateKey
+    business_name: Promotion alternate key
+    description: Promotion business key.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [promotion id]
+
+  - table: dbo.DimPromotion
+    name: EnglishPromotionName
+    business_name: Promotion name
+    description: English promotion name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [promotion, campaign, promotion name]
+
+  - table: dbo.DimPromotion
+    name: DiscountPct
+    business_name: Discount percent
+    description: Discount percentage for promotion.
+    semantic_type: percentage
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [discount, discount percent]
+
+  - table: dbo.DimPromotion
+    name: EnglishPromotionType
+    business_name: Promotion type
+    description: English promotion type.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [promotion type]
+
+  - table: dbo.DimPromotion
+    name: EnglishPromotionCategory
+    business_name: Promotion category
+    description: English promotion category.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [promotion category]
+
+  - table: dbo.DimPromotion
+    name: StartDate
+    business_name: Promotion start date
+    description: Promotion start date.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [start date]
+
+  - table: dbo.DimPromotion
+    name: EndDate
+    business_name: Promotion end date
+    description: Promotion end date.
+    semantic_type: date
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [end date]
+
+  - table: dbo.DimPromotion
+    name: MinQty
+    business_name: Minimum quantity
+    description: Minimum promotion quantity.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [minimum quantity]
+
+  - table: dbo.DimPromotion
+    name: MaxQty
+    business_name: Maximum quantity
+    description: Maximum promotion quantity.
+    semantic_type: numeric
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [maximum quantity]
+
+  # DimCurrency
+  - table: dbo.DimCurrency
+    name: CurrencyKey
+    business_name: Currency key
+    description: Currency surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [currency key]
+
+  - table: dbo.DimCurrency
+    name: CurrencyAlternateKey
+    business_name: Currency code
+    description: Currency code such as USD or EUR.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [currency code, currency]
+
+  - table: dbo.DimCurrency
+    name: CurrencyName
+    business_name: Currency name
+    description: Currency name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [currency name]
+
+  # DimAccount
+  - table: dbo.DimAccount
+    name: AccountKey
+    business_name: Account key
+    description: Account surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [account key]
+
+  - table: dbo.DimAccount
+    name: ParentAccountKey
+    business_name: Parent account key
+    description: Parent account key in account hierarchy.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [parent account]
+
+  - table: dbo.DimAccount
+    name: AccountCodeAlternateKey
+    business_name: Account code
+    description: Account business code.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [account code]
+
+  - table: dbo.DimAccount
+    name: AccountDescription
+    business_name: Account description
+    description: Account description.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [account description]
+
+  - table: dbo.DimAccount
+    name: AccountType
+    business_name: Account type
+    description: Account type.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [account type]
+
+  - table: dbo.DimAccount
+    name: Operator
+    business_name: Account operator
+    description: Account aggregation operator.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [operator]
+
+  - table: dbo.DimAccount
+    name: CustomMembers
+    business_name: Custom members
+    description: Custom account members.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [custom members]
+
+  - table: dbo.DimAccount
+    name: ValueType
+    business_name: Value type
+    description: Account value type.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [value type]
+
+  - table: dbo.DimAccount
+    name: CustomMemberOptions
+    business_name: Custom member options
+    description: Custom member options.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [custom member options]
+
+  # DimOrganization
+  - table: dbo.DimOrganization
+    name: OrganizationKey
+    business_name: Organization key
+    description: Organization surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [organization key]
+
+  - table: dbo.DimOrganization
+    name: ParentOrganizationKey
+    business_name: Parent organization key
+    description: Parent organization key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [parent organization]
+
+  - table: dbo.DimOrganization
+    name: PercentageOfOwnership
+    business_name: Percentage of ownership
+    description: Ownership percentage.
+    semantic_type: percentage
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [ownership]
+
+  - table: dbo.DimOrganization
+    name: OrganizationName
+    business_name: Organization name
+    description: Organization name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [organization, organization name]
+
+  - table: dbo.DimOrganization
+    name: CurrencyKey
+    business_name: Currency key
+    description: Foreign key to DimCurrency.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [currency key]
+
+  # DimDepartmentGroup
+  - table: dbo.DimDepartmentGroup
+    name: DepartmentGroupKey
+    business_name: Department group key
+    description: Department group surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [department group key]
+
+  - table: dbo.DimDepartmentGroup
+    name: ParentDepartmentGroupKey
+    business_name: Parent department group key
+    description: Parent department group key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [parent department]
+
+  - table: dbo.DimDepartmentGroup
+    name: DepartmentGroupName
+    business_name: Department group name
+    description: Department group name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [department group, department]
+
+  # DimScenario
+  - table: dbo.DimScenario
+    name: ScenarioKey
+    business_name: Scenario key
+    description: Scenario surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [scenario key]
+
+  - table: dbo.DimScenario
+    name: ScenarioName
+    business_name: Scenario name
+    description: Scenario name, such as actual, budget, forecast, or plan.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [scenario, plan, budget, forecast, actual]
+
+  # DimSalesReason
+  - table: dbo.DimSalesReason
+    name: SalesReasonKey
+    business_name: Sales reason key
+    description: Sales reason surrogate key.
+    semantic_type: key
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [sales reason key]
+
+  - table: dbo.DimSalesReason
+    name: SalesReasonAlternateKey
+    business_name: Sales reason alternate key
+    description: Sales reason business key.
+    semantic_type: identifier
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [sales reason id]
+
+  - table: dbo.DimSalesReason
+    name: SalesReasonName
+    business_name: Sales reason
+    description: Sales reason name.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [reason, sales reason]
+
+  - table: dbo.DimSalesReason
+    name: SalesReasonReasonType
+    business_name: Sales reason type
+    description: Sales reason type.
+    semantic_type: text
+    allowed_for_ai: true
+    is_pii: false
+    synonyms: [reason type]

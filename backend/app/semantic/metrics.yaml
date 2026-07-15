@@ -1,0 +1,888 @@
+metrics:
+  # =====================================================
+  # Internet Sales Metrics
+  # =====================================================
+  - name: internet_total_revenue
+    business_name: Internet total revenue
+    description: Total revenue from internet sales.
+    domain: sales
+    subject_area: internet_sales
+    base_table: dbo.FactInternetSales
+    expression: SUM(f.SalesAmount)
+    default_alias: internet_total_revenue
+    semantic_type: money
+    synonyms:
+      - internet revenue
+      - online revenue
+      - internet sales
+      - online sales
+      - ecommerce revenue
+
+  - name: internet_total_orders
+    business_name: Internet total orders
+    description: Total number of internet sales order lines.
+    domain: sales
+    subject_area: internet_sales
+    base_table: dbo.FactInternetSales
+    expression: COUNT_BIG(*)
+    default_alias: internet_total_orders
+    semantic_type: count
+    synonyms:
+      - internet orders
+      - online orders
+      - ecommerce orders
+      - order count
+
+  - name: internet_average_order_value
+    business_name: Internet average order value
+    description: Average sales amount for internet sales order lines.
+    domain: sales
+    subject_area: internet_sales
+    base_table: dbo.FactInternetSales
+    expression: AVG(f.SalesAmount)
+    default_alias: internet_average_order_value
+    semantic_type: money
+    synonyms:
+      - internet aov
+      - online average order value
+      - average internet sale
+      - average order value
+
+  - name: internet_total_quantity
+    business_name: Internet total quantity sold
+    description: Total quantity sold through internet sales.
+    domain: sales
+    subject_area: internet_sales
+    base_table: dbo.FactInternetSales
+    expression: SUM(f.OrderQuantity)
+    default_alias: internet_total_quantity
+    semantic_type: numeric
+    synonyms:
+      - internet units sold
+      - online quantity
+      - online volume
+      - units sold
+
+  - name: internet_total_discount
+    business_name: Internet total discount
+    description: Total discount amount for internet sales.
+    domain: sales
+    subject_area: internet_sales
+    base_table: dbo.FactInternetSales
+    expression: SUM(f.DiscountAmount)
+    default_alias: internet_total_discount
+    semantic_type: money
+    synonyms:
+      - internet discount
+      - discount amount
+      - online discounts
+
+  - name: internet_total_tax
+    business_name: Internet total tax
+    description: Total tax amount for internet sales.
+    domain: sales
+    subject_area: internet_sales
+    base_table: dbo.FactInternetSales
+    expression: SUM(f.TaxAmt)
+    default_alias: internet_total_tax
+    semantic_type: money
+    synonyms:
+      - internet tax
+      - sales tax
+      - tax amount
+
+  - name: internet_total_freight
+    business_name: Internet total freight
+    description: Total freight amount for internet sales.
+    domain: sales
+    subject_area: internet_sales
+    base_table: dbo.FactInternetSales
+    expression: SUM(f.Freight)
+    default_alias: internet_total_freight
+    semantic_type: money
+    synonyms:
+      - freight
+      - shipping cost
+      - internet shipping cost
+
+  - name: internet_total_product_cost
+    business_name: Internet total product cost
+    description: Total product cost for internet sales.
+    domain: sales
+    subject_area: internet_sales
+    base_table: dbo.FactInternetSales
+    expression: SUM(f.TotalProductCost)
+    default_alias: internet_total_product_cost
+    semantic_type: money
+    synonyms:
+      - internet cost
+      - product cost
+      - total cost
+
+  - name: internet_gross_margin
+    business_name: Internet gross margin
+    description: Internet sales revenue minus total product cost.
+    domain: sales
+    subject_area: internet_sales
+    base_table: dbo.FactInternetSales
+    expression: SUM(f.SalesAmount - f.TotalProductCost)
+    default_alias: internet_gross_margin
+    semantic_type: money
+    synonyms:
+      - internet margin
+      - gross margin
+      - profit
+      - sales profit
+
+  - name: internet_gross_margin_pct
+    business_name: Internet gross margin percent
+    description: Internet gross margin divided by internet sales revenue.
+    domain: sales
+    subject_area: internet_sales
+    base_table: dbo.FactInternetSales
+    expression: CASE WHEN SUM(f.SalesAmount) = 0 THEN NULL ELSE SUM(f.SalesAmount - f.TotalProductCost) / SUM(f.SalesAmount) END
+    default_alias: internet_gross_margin_pct
+    semantic_type: percentage
+    synonyms:
+      - margin percentage
+      - gross margin percentage
+      - profitability rate
+
+  # =====================================================
+  # Reseller Sales Metrics
+  # =====================================================
+  - name: reseller_total_revenue
+    business_name: Reseller total revenue
+    description: Total revenue from reseller sales.
+    domain: sales
+    subject_area: reseller_sales
+    base_table: dbo.FactResellerSales
+    expression: SUM(f.SalesAmount)
+    default_alias: reseller_total_revenue
+    semantic_type: money
+    synonyms:
+      - reseller revenue
+      - partner revenue
+      - reseller sales
+      - channel revenue
+
+  - name: reseller_total_orders
+    business_name: Reseller total orders
+    description: Total number of reseller sales order lines.
+    domain: sales
+    subject_area: reseller_sales
+    base_table: dbo.FactResellerSales
+    expression: COUNT_BIG(*)
+    default_alias: reseller_total_orders
+    semantic_type: count
+    synonyms:
+      - reseller orders
+      - partner orders
+      - channel orders
+
+  - name: reseller_average_order_value
+    business_name: Reseller average order value
+    description: Average sales amount for reseller sales order lines.
+    domain: sales
+    subject_area: reseller_sales
+    base_table: dbo.FactResellerSales
+    expression: AVG(f.SalesAmount)
+    default_alias: reseller_average_order_value
+    semantic_type: money
+    synonyms:
+      - reseller aov
+      - average reseller sale
+      - reseller average order value
+
+  - name: reseller_total_quantity
+    business_name: Reseller total quantity sold
+    description: Total quantity sold through reseller sales.
+    domain: sales
+    subject_area: reseller_sales
+    base_table: dbo.FactResellerSales
+    expression: SUM(f.OrderQuantity)
+    default_alias: reseller_total_quantity
+    semantic_type: numeric
+    synonyms:
+      - reseller units sold
+      - reseller quantity
+      - reseller volume
+
+  - name: reseller_total_discount
+    business_name: Reseller total discount
+    description: Total discount amount for reseller sales.
+    domain: sales
+    subject_area: reseller_sales
+    base_table: dbo.FactResellerSales
+    expression: SUM(f.DiscountAmount)
+    default_alias: reseller_total_discount
+    semantic_type: money
+    synonyms:
+      - reseller discount
+      - channel discount
+
+  - name: reseller_total_product_cost
+    business_name: Reseller total product cost
+    description: Total product cost for reseller sales.
+    domain: sales
+    subject_area: reseller_sales
+    base_table: dbo.FactResellerSales
+    expression: SUM(f.TotalProductCost)
+    default_alias: reseller_total_product_cost
+    semantic_type: money
+    synonyms:
+      - reseller cost
+      - reseller product cost
+      - channel cost
+
+  - name: reseller_gross_margin
+    business_name: Reseller gross margin
+    description: Reseller sales revenue minus total product cost.
+    domain: sales
+    subject_area: reseller_sales
+    base_table: dbo.FactResellerSales
+    expression: SUM(f.SalesAmount - f.TotalProductCost)
+    default_alias: reseller_gross_margin
+    semantic_type: money
+    synonyms:
+      - reseller margin
+      - reseller profit
+      - channel margin
+
+  - name: reseller_gross_margin_pct
+    business_name: Reseller gross margin percent
+    description: Reseller gross margin divided by reseller sales revenue.
+    domain: sales
+    subject_area: reseller_sales
+    base_table: dbo.FactResellerSales
+    expression: CASE WHEN SUM(f.SalesAmount) = 0 THEN NULL ELSE SUM(f.SalesAmount - f.TotalProductCost) / SUM(f.SalesAmount) END
+    default_alias: reseller_gross_margin_pct
+    semantic_type: percentage
+    synonyms:
+      - reseller margin percentage
+      - channel profitability rate
+
+  # =====================================================
+  # Combined Sales Metrics
+  # =====================================================
+  - name: total_revenue
+    business_name: Total revenue
+    description: Combined total revenue from internet and reseller sales. Use only when both sales channels are required.
+    domain: sales
+    subject_area: combined_sales
+    base_table: derived
+    expression: SUM(SalesAmount)
+    default_alias: total_revenue
+    semantic_type: money
+    synonyms:
+      - revenue
+      - sales
+      - turnover
+      - income
+      - total sales
+
+  - name: total_orders
+    business_name: Total orders
+    description: Combined total sales order lines across sales channels. Use only when both internet and reseller sales are required.
+    domain: sales
+    subject_area: combined_sales
+    base_table: derived
+    expression: COUNT_BIG(*)
+    default_alias: total_orders
+    semantic_type: count
+    synonyms:
+      - orders
+      - order count
+      - number of orders
+      - transactions
+
+  # =====================================================
+  # Product Metrics
+  # =====================================================
+  - name: product_count
+    business_name: Product count
+    description: Number of products.
+    domain: product
+    subject_area: product_catalog
+    base_table: dbo.DimProduct
+    expression: COUNT_BIG(*)
+    default_alias: product_count
+    semantic_type: count
+    synonyms:
+      - products
+      - number of products
+      - product count
+      - items
+
+  - name: average_list_price
+    business_name: Average list price
+    description: Average product list price.
+    domain: product
+    subject_area: product_catalog
+    base_table: dbo.DimProduct
+    expression: AVG(p.ListPrice)
+    default_alias: average_list_price
+    semantic_type: money
+    synonyms:
+      - average price
+      - list price
+      - product price
+
+  - name: average_standard_cost
+    business_name: Average standard cost
+    description: Average standard cost of products.
+    domain: product
+    subject_area: product_catalog
+    base_table: dbo.DimProduct
+    expression: AVG(p.StandardCost)
+    default_alias: average_standard_cost
+    semantic_type: money
+    synonyms:
+      - average cost
+      - standard cost
+      - product cost
+
+  - name: average_dealer_price
+    business_name: Average dealer price
+    description: Average product dealer price.
+    domain: product
+    subject_area: product_catalog
+    base_table: dbo.DimProduct
+    expression: AVG(p.DealerPrice)
+    default_alias: average_dealer_price
+    semantic_type: money
+    synonyms:
+      - dealer price
+      - reseller price
+      - average dealer price
+
+  - name: average_product_weight
+    business_name: Average product weight
+    description: Average product weight.
+    domain: product
+    subject_area: product_catalog
+    base_table: dbo.DimProduct
+    expression: AVG(p.Weight)
+    default_alias: average_product_weight
+    semantic_type: numeric
+    synonyms:
+      - average weight
+      - product weight
+      - weight
+
+  # =====================================================
+  # Inventory Metrics
+  # =====================================================
+  - name: inventory_units_in
+    business_name: Inventory units in
+    description: Total units added to inventory.
+    domain: inventory
+    subject_area: stock
+    base_table: dbo.FactProductInventory
+    expression: SUM(f.UnitsIn)
+    default_alias: inventory_units_in
+    semantic_type: numeric
+    synonyms:
+      - units in
+      - inbound inventory
+      - stock added
+
+  - name: inventory_units_out
+    business_name: Inventory units out
+    description: Total units removed from inventory.
+    domain: inventory
+    subject_area: stock
+    base_table: dbo.FactProductInventory
+    expression: SUM(f.UnitsOut)
+    default_alias: inventory_units_out
+    semantic_type: numeric
+    synonyms:
+      - units out
+      - outbound inventory
+      - stock removed
+
+  - name: inventory_units_balance
+    business_name: Inventory units balance
+    description: Total inventory units balance.
+    domain: inventory
+    subject_area: stock
+    base_table: dbo.FactProductInventory
+    expression: SUM(f.UnitsBalance)
+    default_alias: inventory_units_balance
+    semantic_type: numeric
+    synonyms:
+      - inventory balance
+      - stock balance
+      - units balance
+      - stock on hand
+
+  - name: inventory_average_unit_cost
+    business_name: Inventory average unit cost
+    description: Average inventory unit cost.
+    domain: inventory
+    subject_area: stock
+    base_table: dbo.FactProductInventory
+    expression: AVG(f.UnitCost)
+    default_alias: inventory_average_unit_cost
+    semantic_type: money
+    synonyms:
+      - inventory cost
+      - unit cost
+      - average unit cost
+
+  - name: inventory_total_value
+    business_name: Inventory total value
+    description: Approximate inventory value based on units balance and unit cost.
+    domain: inventory
+    subject_area: stock
+    base_table: dbo.FactProductInventory
+    expression: SUM(f.UnitsBalance * f.UnitCost)
+    default_alias: inventory_total_value
+    semantic_type: money
+    synonyms:
+      - inventory value
+      - stock value
+      - inventory valuation
+
+  # =====================================================
+  # Call Center Metrics
+  # =====================================================
+  - name: call_center_total_calls
+    business_name: Call center total calls
+    description: Total number of calls handled by call center operations.
+    domain: operations
+    subject_area: call_center
+    base_table: dbo.FactCallCenter
+    expression: SUM(f.Calls)
+    default_alias: call_center_total_calls
+    semantic_type: count
+    synonyms:
+      - calls
+      - call volume
+      - total calls
+      - inbound calls
+      - call center calls
+
+  - name: call_center_total_orders
+    business_name: Call center total orders
+    description: Total number of orders generated through call center operations.
+    domain: operations
+    subject_area: call_center
+    base_table: dbo.FactCallCenter
+    expression: SUM(f.Orders)
+    default_alias: call_center_total_orders
+    semantic_type: count
+    synonyms:
+      - call center orders
+      - phone orders
+      - orders from calls
+
+  - name: call_center_total_issues
+    business_name: Call center total issues raised
+    description: Total number of issues raised in call center operations.
+    domain: operations
+    subject_area: call_center
+    base_table: dbo.FactCallCenter
+    expression: SUM(f.IssuesRaised)
+    default_alias: call_center_total_issues
+    semantic_type: count
+    synonyms:
+      - issues
+      - tickets
+      - cases
+      - problems
+      - issues raised
+
+  - name: call_center_average_time_per_issue
+    business_name: Call center average time per issue
+    description: Average time spent per issue in call center operations.
+    domain: operations
+    subject_area: call_center
+    base_table: dbo.FactCallCenter
+    expression: AVG(f.AverageTimePerIssue)
+    default_alias: call_center_average_time_per_issue
+    semantic_type: numeric
+    synonyms:
+      - average handle time
+      - time per issue
+      - issue time
+      - call duration
+      - handle time
+
+  - name: call_center_average_service_grade
+    business_name: Call center average service grade
+    description: Average call center service grade.
+    domain: operations
+    subject_area: call_center
+    base_table: dbo.FactCallCenter
+    expression: AVG(f.ServiceGrade)
+    default_alias: call_center_average_service_grade
+    semantic_type: numeric
+    synonyms:
+      - service grade
+      - service level
+      - call center service level
+
+  - name: call_center_total_operators
+    business_name: Call center total operators
+    description: Total number of call center operators.
+    domain: operations
+    subject_area: call_center
+    base_table: dbo.FactCallCenter
+    expression: SUM(f.TotalOperators)
+    default_alias: call_center_total_operators
+    semantic_type: numeric
+    synonyms:
+      - operators
+      - call center staff
+      - total operators
+      - agents
+
+  - name: call_center_level_one_operators
+    business_name: Call center level one operators
+    description: Total number of level one call center operators.
+    domain: operations
+    subject_area: call_center
+    base_table: dbo.FactCallCenter
+    expression: SUM(f.LevelOneOperators)
+    default_alias: call_center_level_one_operators
+    semantic_type: numeric
+    synonyms:
+      - level one operators
+      - tier one agents
+      - first line support
+
+  - name: call_center_level_two_operators
+    business_name: Call center level two operators
+    description: Total number of level two call center operators.
+    domain: operations
+    subject_area: call_center
+    base_table: dbo.FactCallCenter
+    expression: SUM(f.LevelTwoOperators)
+    default_alias: call_center_level_two_operators
+    semantic_type: numeric
+    synonyms:
+      - level two operators
+      - tier two agents
+      - second line support
+
+  - name: call_center_automatic_responses
+    business_name: Call center automatic responses
+    description: Total number of automatic responses in call center operations.
+    domain: operations
+    subject_area: call_center
+    base_table: dbo.FactCallCenter
+    expression: SUM(f.AutomaticResponses)
+    default_alias: call_center_automatic_responses
+    semantic_type: count
+    synonyms:
+      - automatic responses
+      - automated responses
+      - automation responses
+
+  # =====================================================
+  # Finance Metrics
+  # =====================================================
+  - name: finance_total_amount
+    business_name: Finance total amount
+    description: Total financial amount.
+    domain: finance
+    subject_area: accounting
+    base_table: dbo.FactFinance
+    expression: SUM(f.Amount)
+    default_alias: finance_total_amount
+    semantic_type: money
+    synonyms:
+      - finance amount
+      - financial amount
+      - accounting amount
+      - amount
+
+  - name: finance_average_amount
+    business_name: Finance average amount
+    description: Average financial amount.
+    domain: finance
+    subject_area: accounting
+    base_table: dbo.FactFinance
+    expression: AVG(f.Amount)
+    default_alias: finance_average_amount
+    semantic_type: money
+    synonyms:
+      - average finance amount
+      - average financial amount
+      - average amount
+
+  - name: finance_record_count
+    business_name: Finance record count
+    description: Number of finance fact records.
+    domain: finance
+    subject_area: accounting
+    base_table: dbo.FactFinance
+    expression: COUNT_BIG(*)
+    default_alias: finance_record_count
+    semantic_type: count
+    synonyms:
+      - finance records
+      - accounting records
+      - financial records
+
+  # =====================================================
+  # Sales Quota Metrics
+  # =====================================================
+  - name: sales_quota_total
+    business_name: Sales quota total
+    description: Total sales quota amount.
+    domain: sales
+    subject_area: quotas
+    base_table: dbo.FactSalesQuota
+    expression: SUM(f.SalesAmountQuota)
+    default_alias: sales_quota_total
+    semantic_type: money
+    synonyms:
+      - quota
+      - sales quota
+      - sales target
+      - target
+
+  - name: sales_quota_average
+    business_name: Sales quota average
+    description: Average sales quota amount.
+    domain: sales
+    subject_area: quotas
+    base_table: dbo.FactSalesQuota
+    expression: AVG(f.SalesAmountQuota)
+    default_alias: sales_quota_average
+    semantic_type: money
+    synonyms:
+      - average quota
+      - average target
+
+  - name: sales_quota_count
+    business_name: Sales quota count
+    description: Number of sales quota records.
+    domain: sales
+    subject_area: quotas
+    base_table: dbo.FactSalesQuota
+    expression: COUNT_BIG(*)
+    default_alias: sales_quota_count
+    semantic_type: count
+    synonyms:
+      - quota records
+      - number of quotas
+
+  # =====================================================
+  # Customer Metrics
+  # =====================================================
+  - name: customer_count
+    business_name: Customer count
+    description: Number of customers.
+    domain: customer
+    subject_area: customer_profile
+    base_table: dbo.DimCustomer
+    expression: COUNT_BIG(*)
+    default_alias: customer_count
+    semantic_type: count
+    synonyms:
+      - customers
+      - clients
+      - customer count
+      - number of customers
+      - client count
+
+  - name: average_customer_income
+    business_name: Average customer yearly income
+    description: Average customer yearly income.
+    domain: customer
+    subject_area: customer_profile
+    base_table: dbo.DimCustomer
+    expression: AVG(c.YearlyIncome)
+    default_alias: average_customer_income
+    semantic_type: money
+    synonyms:
+      - average income
+      - customer income
+      - yearly income
+      - average customer income
+
+  - name: average_cars_owned
+    business_name: Average cars owned
+    description: Average number of cars owned by customers.
+    domain: customer
+    subject_area: customer_profile
+    base_table: dbo.DimCustomer
+    expression: AVG(c.NumberCarsOwned)
+    default_alias: average_cars_owned
+    semantic_type: numeric
+    synonyms:
+      - cars owned
+      - average cars
+      - vehicles owned
+
+  # =====================================================
+  # Reseller Metrics
+  # =====================================================
+  - name: reseller_count
+    business_name: Reseller count
+    description: Number of resellers.
+    domain: reseller
+    subject_area: reseller_profile
+    base_table: dbo.DimReseller
+    expression: COUNT_BIG(*)
+    default_alias: reseller_count
+    semantic_type: count
+    synonyms:
+      - resellers
+      - partners
+      - reseller count
+      - partner count
+
+  - name: reseller_average_annual_sales
+    business_name: Reseller average annual sales
+    description: Average annual sales for resellers.
+    domain: reseller
+    subject_area: reseller_profile
+    base_table: dbo.DimReseller
+    expression: AVG(r.AnnualSales)
+    default_alias: reseller_average_annual_sales
+    semantic_type: money
+    synonyms:
+      - reseller annual sales
+      - average annual sales
+      - partner sales
+
+  - name: reseller_average_annual_revenue
+    business_name: Reseller average annual revenue
+    description: Average annual revenue for resellers.
+    domain: reseller
+    subject_area: reseller_profile
+    base_table: dbo.DimReseller
+    expression: AVG(r.AnnualRevenue)
+    default_alias: reseller_average_annual_revenue
+    semantic_type: money
+    synonyms:
+      - reseller annual revenue
+      - partner annual revenue
+
+  - name: reseller_average_employee_count
+    business_name: Reseller average employee count
+    description: Average number of employees for resellers.
+    domain: reseller
+    subject_area: reseller_profile
+    base_table: dbo.DimReseller
+    expression: AVG(r.NumberEmployees)
+    default_alias: reseller_average_employee_count
+    semantic_type: numeric
+    synonyms:
+      - reseller employees
+      - partner employees
+      - reseller staff
+
+  # =====================================================
+  # Workforce Metrics
+  # =====================================================
+  - name: employee_count
+    business_name: Employee count
+    description: Number of current employees.
+    domain: workforce
+    subject_area: employee_profile
+    base_table: dbo.DimEmployee
+    expression: COUNT_BIG(*)
+    default_alias: employee_count
+    semantic_type: count
+    suggested_filter: CurrentFlag = 1
+    synonyms:
+      - employees
+      - headcount
+      - staff count
+      - workforce size
+      - current employees
+
+  - name: total_employee_records
+    business_name: Total employee records
+    description: Number of employee dimension records, including historical rows.
+    domain: workforce
+    subject_area: employee_profile
+    base_table: dbo.DimEmployee
+    expression: COUNT_BIG(*)
+    default_alias: total_employee_records
+    semantic_type: count
+    synonyms:
+      - employee records
+      - workforce records
+
+  - name: average_tenure_years
+    business_name: Average tenure in years
+    description: Average employee tenure in years for current employees.
+    domain: workforce
+    subject_area: employee_profile
+    base_table: dbo.DimEmployee
+    expression: AVG(DATEDIFF(day, e.HireDate, GETDATE()) / 365.25)
+    default_alias: average_tenure_years
+    semantic_type: numeric
+    suggested_filter: CurrentFlag = 1
+    synonyms:
+      - tenure
+      - average tenure
+      - years at company
+      - employee tenure
+
+  - name: average_vacation_hours
+    business_name: Average vacation hours
+    description: Average vacation hours for current employees.
+    domain: workforce
+    subject_area: employee_profile
+    base_table: dbo.DimEmployee
+    expression: AVG(e.VacationHours)
+    default_alias: average_vacation_hours
+    semantic_type: numeric
+    suggested_filter: CurrentFlag = 1
+    synonyms:
+      - vacation
+      - vacation hours
+      - average vacation
+
+  - name: average_sick_leave_hours
+    business_name: Average sick leave hours
+    description: Average sick leave hours for current employees.
+    domain: workforce
+    subject_area: employee_profile
+    base_table: dbo.DimEmployee
+    expression: AVG(e.SickLeaveHours)
+    default_alias: average_sick_leave_hours
+    semantic_type: numeric
+    suggested_filter: CurrentFlag = 1
+    synonyms:
+      - sick leave
+      - sick hours
+      - average sick leave
+
+  # =====================================================
+  # Currency Metrics
+  # =====================================================
+  - name: average_currency_rate
+    business_name: Average currency rate
+    description: Average currency exchange rate.
+    domain: finance
+    subject_area: currency
+    base_table: dbo.FactCurrencyRate
+    expression: AVG(f.AverageRate)
+    default_alias: average_currency_rate
+    semantic_type: numeric
+    synonyms:
+      - exchange rate
+      - currency rate
+      - average rate
+
+  - name: end_of_day_currency_rate
+    business_name: Average end-of-day currency rate
+    description: Average end-of-day currency exchange rate.
+    domain: finance
+    subject_area: currency
+    base_table: dbo.FactCurrencyRate
+    expression: AVG(f.EndOfDayRate)
+    default_alias: end_of_day_currency_rate
+    semantic_type: numeric
+    synonyms:
+      - end of day rate
+      - closing exchange rate
+      - closing currency rate

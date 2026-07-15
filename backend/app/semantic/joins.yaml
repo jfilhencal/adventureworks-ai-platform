@@ -1,0 +1,386 @@
+joins:
+  # =====================================================
+  # Product hierarchy
+  # =====================================================
+  - left_table: dbo.DimProduct
+    left_column: ProductSubcategoryKey
+    right_table: dbo.DimProductSubcategory
+    right_column: ProductSubcategoryKey
+    relationship: many_to_one
+    description: Join product to product subcategory.
+
+  - left_table: dbo.DimProductSubcategory
+    left_column: ProductCategoryKey
+    right_table: dbo.DimProductCategory
+    right_column: ProductCategoryKey
+    relationship: many_to_one
+    description: Join product subcategory to product category.
+
+  # =====================================================
+  # Customer and geography
+  # =====================================================
+  - left_table: dbo.DimCustomer
+    left_column: GeographyKey
+    right_table: dbo.DimGeography
+    right_column: GeographyKey
+    relationship: many_to_one
+    description: Join customers to geography.
+
+  - left_table: dbo.DimGeography
+    left_column: SalesTerritoryKey
+    right_table: dbo.DimSalesTerritory
+    right_column: SalesTerritoryKey
+    relationship: many_to_one
+    description: Join geography to sales territory.
+
+  # =====================================================
+  # Reseller and geography
+  # =====================================================
+  - left_table: dbo.DimReseller
+    left_column: GeographyKey
+    right_table: dbo.DimGeography
+    right_column: GeographyKey
+    relationship: many_to_one
+    description: Join resellers to geography.
+
+  # =====================================================
+  # Employee relationships
+  # =====================================================
+  - left_table: dbo.DimEmployee
+    left_column: ParentEmployeeKey
+    right_table: dbo.DimEmployee
+    right_column: EmployeeKey
+    relationship: many_to_one
+    description: Join employee to parent employee or manager.
+
+  - left_table: dbo.DimEmployee
+    left_column: SalesTerritoryKey
+    right_table: dbo.DimSalesTerritory
+    right_column: SalesTerritoryKey
+    relationship: many_to_one
+    description: Join employee to assigned sales territory.
+
+  # =====================================================
+  # Organization hierarchy
+  # =====================================================
+  - left_table: dbo.DimOrganization
+    left_column: ParentOrganizationKey
+    right_table: dbo.DimOrganization
+    right_column: OrganizationKey
+    relationship: many_to_one
+    description: Join organization to parent organization.
+
+  - left_table: dbo.DimOrganization
+    left_column: CurrencyKey
+    right_table: dbo.DimCurrency
+    right_column: CurrencyKey
+    relationship: many_to_one
+    description: Join organization to currency.
+
+  # =====================================================
+  # Department group hierarchy
+  # =====================================================
+  - left_table: dbo.DimDepartmentGroup
+    left_column: ParentDepartmentGroupKey
+    right_table: dbo.DimDepartmentGroup
+    right_column: DepartmentGroupKey
+    relationship: many_to_one
+    description: Join department group to parent department group.
+
+  # =====================================================
+  # Account hierarchy
+  # =====================================================
+  - left_table: dbo.DimAccount
+    left_column: ParentAccountKey
+    right_table: dbo.DimAccount
+    right_column: AccountKey
+    relationship: many_to_one
+    description: Join account to parent account.
+
+  # =====================================================
+  # Internet sales fact joins
+  # =====================================================
+  - left_table: dbo.FactInternetSales
+    left_column: ProductKey
+    right_table: dbo.DimProduct
+    right_column: ProductKey
+    relationship: many_to_one
+    description: Join internet sales to product details.
+
+  - left_table: dbo.FactInternetSales
+    left_column: CustomerKey
+    right_table: dbo.DimCustomer
+    right_column: CustomerKey
+    relationship: many_to_one
+    description: Join internet sales to customers.
+
+  - left_table: dbo.FactInternetSales
+    left_column: PromotionKey
+    right_table: dbo.DimPromotion
+    right_column: PromotionKey
+    relationship: many_to_one
+    description: Join internet sales to promotions.
+
+  - left_table: dbo.FactInternetSales
+    left_column: CurrencyKey
+    right_table: dbo.DimCurrency
+    right_column: CurrencyKey
+    relationship: many_to_one
+    description: Join internet sales to currency.
+
+  - left_table: dbo.FactInternetSales
+    left_column: SalesTerritoryKey
+    right_table: dbo.DimSalesTerritory
+    right_column: SalesTerritoryKey
+    relationship: many_to_one
+    description: Join internet sales to sales territory.
+
+  - left_table: dbo.FactInternetSales
+    left_column: OrderDateKey
+    right_table: dbo.DimDate
+    right_column: DateKey
+    relationship: many_to_one
+    role: order_date
+    description: Join internet sales to calendar date using order date.
+
+  - left_table: dbo.FactInternetSales
+    left_column: DueDateKey
+    right_table: dbo.DimDate
+    right_column: DateKey
+    relationship: many_to_one
+    role: due_date
+    description: Join internet sales to calendar date using due date.
+
+  - left_table: dbo.FactInternetSales
+    left_column: ShipDateKey
+    right_table: dbo.DimDate
+    right_column: DateKey
+    relationship: many_to_one
+    role: ship_date
+    description: Join internet sales to calendar date using ship date.
+
+  # =====================================================
+  # Internet sales reason bridge joins
+  # =====================================================
+  - left_table: dbo.FactInternetSalesReason
+    left_column: SalesReasonKey
+    right_table: dbo.DimSalesReason
+    right_column: SalesReasonKey
+    relationship: many_to_one
+    description: Join internet sales reason bridge to sales reason.
+
+  - left_table: dbo.FactInternetSalesReason
+    left_column: SalesOrderNumber
+    right_table: dbo.FactInternetSales
+    right_column: SalesOrderNumber
+    relationship: many_to_one
+    description: Join internet sales reason bridge to internet sales by sales order number.
+
+  # =====================================================
+  # Reseller sales fact joins
+  # =====================================================
+  - left_table: dbo.FactResellerSales
+    left_column: ProductKey
+    right_table: dbo.DimProduct
+    right_column: ProductKey
+    relationship: many_to_one
+    description: Join reseller sales to product details.
+
+  - left_table: dbo.FactResellerSales
+    left_column: ResellerKey
+    right_table: dbo.DimReseller
+    right_column: ResellerKey
+    relationship: many_to_one
+    description: Join reseller sales to reseller.
+
+  - left_table: dbo.FactResellerSales
+    left_column: EmployeeKey
+    right_table: dbo.DimEmployee
+    right_column: EmployeeKey
+    relationship: many_to_one
+    description: Join reseller sales to employee or salesperson.
+
+  - left_table: dbo.FactResellerSales
+    left_column: PromotionKey
+    right_table: dbo.DimPromotion
+    right_column: PromotionKey
+    relationship: many_to_one
+    description: Join reseller sales to promotion.
+
+  - left_table: dbo.FactResellerSales
+    left_column: CurrencyKey
+    right_table: dbo.DimCurrency
+    right_column: CurrencyKey
+    relationship: many_to_one
+    description: Join reseller sales to currency.
+
+  - left_table: dbo.FactResellerSales
+    left_column: SalesTerritoryKey
+    right_table: dbo.DimSalesTerritory
+    right_column: SalesTerritoryKey
+    relationship: many_to_one
+    description: Join reseller sales to sales territory.
+
+  - left_table: dbo.FactResellerSales
+    left_column: OrderDateKey
+    right_table: dbo.DimDate
+    right_column: DateKey
+    relationship: many_to_one
+    role: order_date
+    description: Join reseller sales to calendar date using order date.
+
+  - left_table: dbo.FactResellerSales
+    left_column: DueDateKey
+    right_table: dbo.DimDate
+    right_column: DateKey
+    relationship: many_to_one
+    role: due_date
+    description: Join reseller sales to calendar date using due date.
+
+  - left_table: dbo.FactResellerSales
+    left_column: ShipDateKey
+    right_table: dbo.DimDate
+    right_column: DateKey
+    relationship: many_to_one
+    role: ship_date
+    description: Join reseller sales to calendar date using ship date.
+
+  # =====================================================
+  # Product inventory fact joins
+  # =====================================================
+  - left_table: dbo.FactProductInventory
+    left_column: ProductKey
+    right_table: dbo.DimProduct
+    right_column: ProductKey
+    relationship: many_to_one
+    description: Join product inventory to product details.
+
+  - left_table: dbo.FactProductInventory
+    left_column: DateKey
+    right_table: dbo.DimDate
+    right_column: DateKey
+    relationship: many_to_one
+    description: Join product inventory to calendar date.
+
+  # =====================================================
+  # Call center fact joins
+  # =====================================================
+  - left_table: dbo.FactCallCenter
+    left_column: DateKey
+    right_table: dbo.DimDate
+    right_column: DateKey
+    relationship: many_to_one
+    description: Join call center operations to calendar date.
+
+  # =====================================================
+  # Currency rate fact joins
+  # =====================================================
+  - left_table: dbo.FactCurrencyRate
+    left_column: CurrencyKey
+    right_table: dbo.DimCurrency
+    right_column: CurrencyKey
+    relationship: many_to_one
+    description: Join currency rates to currency.
+
+  - left_table: dbo.FactCurrencyRate
+    left_column: DateKey
+    right_table: dbo.DimDate
+    right_column: DateKey
+    relationship: many_to_one
+    description: Join currency rates to calendar date.
+
+  # =====================================================
+  # Finance fact joins
+  # =====================================================
+  - left_table: dbo.FactFinance
+    left_column: DateKey
+    right_table: dbo.DimDate
+    right_column: DateKey
+    relationship: many_to_one
+    description: Join finance facts to calendar date.
+
+  - left_table: dbo.FactFinance
+    left_column: OrganizationKey
+    right_table: dbo.DimOrganization
+    right_column: OrganizationKey
+    relationship: many_to_one
+    description: Join finance facts to organization.
+
+  - left_table: dbo.FactFinance
+    left_column: DepartmentGroupKey
+    right_table: dbo.DimDepartmentGroup
+    right_column: DepartmentGroupKey
+    relationship: many_to_one
+    description: Join finance facts to department group.
+
+  - left_table: dbo.FactFinance
+    left_column: ScenarioKey
+    right_table: dbo.DimScenario
+    right_column: ScenarioKey
+    relationship: many_to_one
+    description: Join finance facts to scenario.
+
+  - left_table: dbo.FactFinance
+    left_column: AccountKey
+    right_table: dbo.DimAccount
+    right_column: AccountKey
+    relationship: many_to_one
+    description: Join finance facts to account.
+
+  # =====================================================
+  # Sales quota fact joins
+  # =====================================================
+  - left_table: dbo.FactSalesQuota
+    left_column: EmployeeKey
+    right_table: dbo.DimEmployee
+    right_column: EmployeeKey
+    relationship: many_to_one
+    description: Join sales quota to employee or salesperson.
+
+  - left_table: dbo.FactSalesQuota
+    left_column: DateKey
+    right_table: dbo.DimDate
+    right_column: DateKey
+    relationship: many_to_one
+    description: Join sales quota to calendar date.
+
+  # =====================================================
+  # Survey response fact joins
+  # =====================================================
+  - left_table: dbo.FactSurveyResponse
+    left_column: DateKey
+    right_table: dbo.DimDate
+    right_column: DateKey
+    relationship: many_to_one
+    description: Join survey responses to calendar date.
+
+  - left_table: dbo.FactSurveyResponse
+    left_column: CustomerKey
+    right_table: dbo.DimCustomer
+    right_column: CustomerKey
+    relationship: many_to_one
+    description: Join survey responses to customer.
+
+  - left_table: dbo.FactSurveyResponse
+    left_column: ProductCategoryKey
+    right_table: dbo.DimProductCategory
+    right_column: ProductCategoryKey
+    relationship: many_to_one
+    description: Join survey responses to product category.
+
+  - left_table: dbo.FactSurveyResponse
+    left_column: ProductSubcategoryKey
+    right_table: dbo.DimProductSubcategory
+    right_column: ProductSubcategoryKey
+    relationship: many_to_one
+    description: Join survey responses to product subcategory.
+
+  # =====================================================
+  # International product description joins
+  # =====================================================
+  - left_table: dbo.FactAdditionalInternationalProductDescription
+    left_column: ProductKey
+    right_table: dbo.DimProduct
+    right_column: ProductKey
+    relationship: many_to_one
+    description: Join international product descriptions to product details.

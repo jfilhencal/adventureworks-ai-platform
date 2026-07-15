@@ -13,3 +13,4 @@ azure-storage-blob>=12.23.0
 truststore>=0.10.0
 pandas>=2.2.0
 statsmodels>=0.14.0
+PyYAML>=6.0.0
